@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+  <data-sources />
+  <form-beans>
+  	<form-bean name="userForm" type="pers.qfy.struts.form.UserForm" />
+  	<form-bean name="commodityForm" type="pers.qfy.struts.form.CommodityForm" />
+  	<form-bean name="indentForm" type="pers.qfy.struts.form.IndentForm" />
+  </form-beans>
+  <global-exceptions />
+  <global-forwards>
+  	<forward name="login" path="/login.jsp" />
+  	<forward name="main" path="/main.jsp"/>
+  </global-forwards>
+  <action-mappings>
+	<action path="/login" name="userForm" scope="request" type="pers.qfy.struts.action.LoginAction">
+  		<forward name="save" path="/login.jsp" />
+  	</action>
+  	<action path="/langset" name="" scope="request" type="pers.qfy.struts.action.LangSetAction" />
+  	<action path="/system" name="userForm" scope="request" type="pers.qfy.struts.action.SystemAction">
+  		<forward name="showUser" path="/system/showUser.jsp" />
+  	</action>
+  	<action path="/commodity" name="commodityForm" scope="request" type="pers.qfy.struts.action.CommodityAction">
+  		<!-- viewUI适用于已经存了内容的，这时候跳入界面，则全读取内容以及显示出来 -->
+  		<forward name="viewUI" path="/commodity/commodity_view.jsp" />
+  		<!-- viewUI适用于已经存了内容的，这时候跳入界面，则全读取内容以及显示出来。如果没内容，则可看成是一个添加页面，有内容则是修改页面 -->
+  		<forward name="addUI" path="/commodity/commodity_add.jsp" />
+  		<!-- 跳到CommodityActionj中，并使用参数view。这是读取数据库内容，并显示 -->
+  		<forward name="show" path="/commodity.do?command=view"/>
+  	</action>
+  	
+  	<action path="/indent" name="indentForm" scope="request" type="pers.qfy.struts.action.IndentAction">
+  		<!-- 进行商品编号进行查询，并把结果存起来，然后跳到添加订单页面 -->
+  		<!-- 销售的 -->
+  		<forward name="sellselectUI" path="/sell/sell_select.jsp"/>
+  		<forward name="selladd" path="indent.do?command=sell_add"/>
+  		<forward name="selladdUI" path="/sell/sell_add.jsp"/>
+  		<forward name="sellview" path="/indent.do?command=sell_view"/>
+  		<forward name="sellviewUI" path="/sell/sell_view.jsp"/>
+
+  		<!-- 采购的 -->
+  		<forward name="purchaseselectUI" path="/purchase/purchase_select.jsp"/>
+  		<forward name="purchaseadd" path="/indent.do?command=purchase_add"/>
+  		<forward name="purchaseaddUI" path="/purchase/purchase_add.jsp"/>
+  		<forward name="purchaseview" path="/indent.do?command=purchase_view"/>
+  		<forward name="purchaseviewUI" path="/purchase/purchase_view.jsp"/>
+  	</action>
+  	
+  </action-mappings>
+  <message-resources parameter="pers.qfy.struts.lang" />
+</struts-config>

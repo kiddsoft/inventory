@@ -1,0 +1,27 @@
+body{
+	SCROLLBAR-ARROW-COLOR: #393e60; SCROLLBAR-FACE-COLOR: #dadce9; BACKGROUND-COLOR: aliceblue; SCROLLBAR-DARKSHADOW-COLOR: #8c92bc; FONT-FAMILY: "Î¢ÈíÑÅºÚ","","Helvetica", "sans-serif"; SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; SCROLLBAR-SHADOW-COLOR: #dadce9; FONT-SIZE: 14px; SCROLLBAR-TRACK-COLOR: #ecedf3; SCROLLBAR-3DLIGHT-COLOR: #cbcee0
+}
+.buttonStyle {
+	BACKGROUND-IMAGE: url(../img/buttonbg.jpg);
+	BORDER-BOTTOM: medium none;
+	MIN-WIDTH: 63px;
+	BORDER-LEFT: medium none;
+	HEIGHT: 25px;
+	COLOR: #ffffff;
+	FONT-SIZE: 12px;
+	BORDER-TOP: medium none;
+	CURSOR: hand;
+	BORDER-RIGHT: medium none;
+	WIDTH: 50px;
+}
+td_beiyong{
+	FONT-FAMILY: "Î¢ÈíÑÅºÚ", "","Helvetica", "sans-serif";
+	FONT-SIZE: 12px
+}
+.BODY_otherclr{
+	SCROLLBAR-ARROW-COLOR: #393e60; SCROLLBAR-FACE-COLOR: #dadce9; BACKGROUND-COLOR: lightskyblue; SCROLLBAR-DARKSHADOW-COLOR: #8c92bc; FONT-FAMILY: "Î¢ÈíÑÅºÚ","","Helvetica", "sans-serif"; SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; SCROLLBAR-SHADOW-COLOR: #dadce9; FONT-SIZE: 14px; SCROLLBAR-TRACK-COLOR: #ecedf3; SCROLLBAR-3DLIGHT-COLOR: #cbcee0
+}
+.td_right{
+			height:	30px;
+			text-align:	right;
+		}
