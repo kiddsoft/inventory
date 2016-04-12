@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="manager"
+  name="inventory"
   id="myeclipse.1459070807356"
-  context-root="/manager"
+  context-root="/inventory"
   j2ee-spec="5.0"
-  archive="manager.war">
+  archive="inventory.war">
   <attributes>
-    <attribute name="webrootdir" value="WebRoot" />
+    <attribute name="webrootdir" value="/WebRoot" />
   </attributes>
 </project-module>
 
