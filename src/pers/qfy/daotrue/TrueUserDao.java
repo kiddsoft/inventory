@@ -1,17 +1,10 @@
 package pers.qfy.daotrue;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.hibernate.LockMode;
-import org.hibernate.Query;
-import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pers.qfy.factory.BaseHibernateDAO;
 import pers.qfy.dao.TbUser;
-import sun.reflect.generics.tree.Tree;
 
 public class TrueUserDao extends BaseHibernateDAO {
 	private static final Logger log = LoggerFactory.getLogger(TrueUserDao.class);

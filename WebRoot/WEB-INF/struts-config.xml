@@ -3,24 +3,31 @@
 
 <struts-config>
   <data-sources />
+  
   <form-beans>
   	<form-bean name="userForm" type="pers.qfy.struts.form.UserForm" />
   	<form-bean name="commodityForm" type="pers.qfy.struts.form.CommodityForm" />
   	<form-bean name="indentForm" type="pers.qfy.struts.form.IndentForm" />
   </form-beans>
+  
   <global-exceptions />
+  
   <global-forwards>
   	<forward name="login" path="/login.jsp" />
   	<forward name="main" path="/main.jsp"/>
   </global-forwards>
+  
   <action-mappings>
 	<action path="/login" name="userForm" scope="request" type="pers.qfy.struts.action.LoginAction">
   		<forward name="save" path="/login.jsp" />
   	</action>
+  	
   	<action path="/langset" name="" scope="request" type="pers.qfy.struts.action.LangSetAction" />
+  	
   	<action path="/system" name="userForm" scope="request" type="pers.qfy.struts.action.SystemAction">
   		<forward name="showUser" path="/system/showUser.jsp" />
   	</action>
+  	
   	<action path="/commodity" name="commodityForm" scope="request" type="pers.qfy.struts.action.CommodityAction">
   		<!-- viewUI适用于已经存了内容的，这时候跳入界面，则全读取内容以及显示出来 -->
   		<forward name="viewUI" path="/commodity/commodity_view.jsp" />
@@ -48,5 +55,6 @@
   	</action>
   	
   </action-mappings>
+  
   <message-resources parameter="pers.qfy.struts.lang" />
 </struts-config>

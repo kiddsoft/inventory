@@ -1,6 +1,5 @@
 package pers.qfy.dao;
 
-import java.sql.Timestamp;
 import java.util.List;
 import org.hibernate.LockMode;
 import org.hibernate.Query;

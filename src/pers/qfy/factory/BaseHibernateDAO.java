@@ -8,8 +8,10 @@ import org.hibernate.Session;
 
 import pers.qfy.dao.HibernateSessionFactory;
 import pers.qfy.util.FUtil;
+
 public class BaseHibernateDAO implements IBaseHibernateDAO {
 	protected Session session = null;
+	
 	public Session getSession() {
 		return HibernateSessionFactory.getSession();
 	}
@@ -37,6 +39,7 @@ public class BaseHibernateDAO implements IBaseHibernateDAO {
 		}
 		return ret;
 	}
+	
 	/**
 	 * 根据键值来查询并返回结果
 	 * @param sql			需要执行的SQL语句
@@ -50,18 +53,21 @@ public class BaseHibernateDAO implements IBaseHibernateDAO {
 		}
 		return ser;
 	}
+	
 	public List QueryForKeyOne(String tableName, String Name, String Value, Class resultClass){
 		String sql = String.format("select * from %s where %s='%s';", tableName, Name, Value);
 		List<Serializable> result = null;
 		result = QueryBase(sql, resultClass);
 		return result;
 	}
+	
 	public List QueryForKeyTwo(String tableName, String Name1, String Value1, String Name2, String Value2, Class resultClass){
 		String sql = String.format("select * from %s where %s='%s' and %s='%s';", tableName, Name1, Value1, Name2, Value2);
 		List<Serializable> result = null;
 		result = QueryBase(sql, resultClass);
 		return result;
 	}
+	
 	public List QueryAll(String tableName, Class resultClass){
 		String sql = String.format("select * from %s;", tableName);
 		List<Serializable> result = null;

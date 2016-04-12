@@ -40,7 +40,7 @@ public class LoginAction extends Action{
     	TbIndent tbi=new TbIndent(sKey,"2","3", "4", 5,6,7,8,FUtil.getSystemTime(), FUtil.getSystemTime());
     	TbIndentDAO tbidao=new TbIndentDAO();
     	tbidao.saveDate(tbi);
-*/
+    	*/
 	}
 
 	//登陆验证
@@ -49,40 +49,32 @@ public class LoginAction extends Action{
     {
     	FUtil.print("LoginAction::ActionForward " + TbUser.class);
     	
-    	/*
-    	 
-    	 
-    	 
-    	*/
-    	
     	// 获取消息资源对象  用于获取相对的properties
-    	boolean t = false;
-   	 	if(t){
+    	boolean runDBTest = false;
+   	 	if(runDBTest){
    	 		test(form,request, response);
    	 		return mapping.findForward("login");
-   	 	}
-   	 	else{
+   	 	} else {
 	   	 	this.locale = this.getLocale(request);
 			this.message = this.getResources(request);
 	
 			//在login.jsp中提交的表单结构体
-	    	UserForm us=(UserForm)form;
+	    	UserForm us = (UserForm)form;
 	
 	    	//在数据库中根据用户名来查询
-	    	TrueUserDao userdao=new TrueUserDao();
+	    	TrueUserDao userdao = new TrueUserDao();
 	    	TbUser userdata = userdao.login(us.getUsername());
 	    	if(userdata == null){
 	    		//用户名不对
 	    		request.setAttribute("error", message.getMessage(locale, "user.username.error"));
 	    		return mapping.findForward("login");
-	    	}
-	    	else if(!userdata.getPassword().equals(us.getPassword())){
+	    	} else if(!userdata.getPassword().equals(us.getPassword())){
 	    		//密码不对
 	    		request.setAttribute("error", message.getMessage(locale, "user.password.error"));
 	    		return mapping.findForward("login");
 	    	}
 	    	//设置是否管理员以及审核者 以便显示一些信息
-	    	HttpSession session=request.getSession(false);
+	    	HttpSession session = request.getSession(false);
 	    	session.setAttribute("isadmin", userdata.getLevel());//管理员 0与1表示管理员，2表示普通用户
 	    	session.setAttribute("ismgr", userdata.getLevel());//审核者 1表示是审核者
 	    	session.setAttribute("user_id", userdata.getUsername());
