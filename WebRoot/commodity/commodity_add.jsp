@@ -24,7 +24,7 @@ if(obj != null){
 	strdesc = obj.getDescription();
 	//把它设成null，下次就不会再读了，除非有新的修改
 	request.setAttribute("modifycommoditylist", null);
-	
+
 	//这个值用于在进入action时作判断是否为修改，以及记录旧的cno字段
 	session.setAttribute("modifycommodityvcno", obj.getCno());
 }
@@ -34,13 +34,10 @@ if(obj != null){
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
     <title>add</title>
-    
     <meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="expires" content="0">
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -71,9 +68,9 @@ if(obj != null){
 			return true;
 		}
 	</script>
-	
+
   </head>
-  
+
   <body>
   <table align="center">
   <tr><td>

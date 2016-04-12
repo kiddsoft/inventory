@@ -10,10 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
     <title>My JSP 'commodity_view.jsp' starting page</title>
-    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
@@ -22,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 
   </head>
-  
+
   <body>
   <table border="1">
   <tr><td>
@@ -69,16 +66,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  			<html:submit property="command"><bean:message key="button.delete.selected"/></html:submit>
 			      			<html:submit property="command"><bean:message key="button.delete.all"/></html:submit>
 				  			</td>
-			</form>	  			
+			</form>
 				  			<td>
 				  				<!-- 存放页数标识 -->
 				  			</td>
 				  		</tr>
 				  	</table>
 				  </td></tr>
-			
-			
-			
+
+
+
 	  	</logic:notEmpty>
 	  </logic:present>
 	  </table>

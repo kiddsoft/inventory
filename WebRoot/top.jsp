@@ -7,7 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
     <title>My JSP 'top.jsp' starting page</title>
     <meta http-equiv="pragma" content="no-cache">
   	<meta http-equiv="cache-control" content="no-cache">
@@ -17,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 引用css/styles.css文件 -->
   	<link rel="stylesheet" type="text/css" href="css/styles.css">
   </head>
-
   <body style="background-color: lightskyblue">
     <h1 align="center">进销存管理系统</h1>
   </body>
