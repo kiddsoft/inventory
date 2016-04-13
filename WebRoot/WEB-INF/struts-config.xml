@@ -56,5 +56,5 @@
   	
   </action-mappings>
   
-  <message-resources parameter="pers.qfy.struts.lang" />
+  <message-resources parameter="pers.qfy.struts.lang_zh_CN" />
 </struts-config>
