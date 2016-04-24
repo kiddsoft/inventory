@@ -60,6 +60,10 @@ public class IndentAction extends BaseAction{
 			{
 				af = View_sell( mapping, form, request, response);
 			}
+			else if(cmd.equals("delete"))
+			{
+				af = Del( mapping, form, request, response, 1);
+			}
 		}
 		else
 		{
@@ -75,6 +79,11 @@ public class IndentAction extends BaseAction{
 			else if(cmd.equals("view"))
 			{
 				af = View_purchase( mapping, form, request, response);
+			}
+			else if(cmd.equals("delete"))
+			{
+				//没处理，普通员工应该没有权限删除订单 领导权限
+				af = Del( mapping, form, request, response, 0);
 			}
 		}
 		return af;
@@ -126,7 +135,34 @@ public class IndentAction extends BaseAction{
     	request.setAttribute("indentdata", li);
     	return mapping.findForward("forward_sell_viewUI");
     }
-	
+    
+    //删除
+    public ActionForward Del(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response, int isSell){
+    	
+    	String[] delAllCno = request.getParameterValues("ino");
+    	String[] selCno = request.getParameterValues("selectedcno");
+    	
+    	if(selCno != null && selCno.length > 0){
+			FUtil.print("删除所选");
+			for(int i=0;i<selCno.length;i++){
+				FUtil.print(selCno[i]);
+				dao.Delete(dao.INO, selCno[i]);
+			}
+		}
+    	else if(delAllCno != null && delAllCno.length > 0){
+			FUtil.print("删除全部");
+			for(int i=0;i<delAllCno.length;i++){
+				FUtil.print(delAllCno[i]);
+			}
+			//根据结果来删除
+			dao.Delete(dao.ISOUTSELL, "" + isSell);
+		}
+    	if(isSell == 1)
+    	{
+    		return mapping.findForward("forward_sell_view");
+    	}
+    	return mapping.findForward("forward_purchase_view");
+    }
 	
     
     
