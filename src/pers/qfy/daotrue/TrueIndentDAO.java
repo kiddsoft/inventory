@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import pers.qfy.dao.TbCommodity;
 import pers.qfy.dao.TbIndent;
 import pers.qfy.factory.BaseHibernateDAO;
+import pers.qfy.util.FUtil;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -30,6 +31,7 @@ public class TrueIndentDAO extends BaseHibernateDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(TrueIndentDAO.class);
 	// property constants
+	public static final String INO = "ino";
 	public static final String CNO = "cno";
 	public static final String USERNAME = "username";
 	public static final String SUPERIOR = "superior";
@@ -44,5 +46,15 @@ public class TrueIndentDAO extends BaseHibernateDAO {
 		String sql = String.format("select * from tb_commodity where cno='%s';", cno);
 		Serializable ser = QuerySingle(sql, TbCommodity.class);
 		return ser;
+	}
+	
+	//删除商品
+	public int Delete(String field, String value){
+		//根据条件来删除
+		int ret = 0;
+		String sql = String.format("delete from %s where %s='%s';",TABLENAME, field, value);
+		FUtil.print(sql);
+		ret = ExecSql(sql);
+		return ret;
 	}
 }

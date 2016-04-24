@@ -4,35 +4,32 @@
   <StrutsActivity path="/langset.do" location="350,50" dimension="247,104" />
   <StrutsActivity path="/system.do" location="650,50" dimension="242,104" />
   <StrutsActivity path="/commodity.do" location="950,50" dimension="268,104" />
-  <StrutsActivity path="/indent.do" location="350,650" dimension="238,104" />
   <StrutsActivity path="login;6" location="50,250" dimension="97,87" />
   <StrutsActivity path="main;6" location="350,250" dimension="96,87" />
   <StrutsActivity path="/login.jsp" location="650,250" dimension="86,53" />
   <StrutsActivity path="/system/showUser.jsp" location="950,250" dimension="159,53" />
   <StrutsActivity path="/commodity/commodity_view.jsp" location="50,450" dimension="222,53" />
   <StrutsActivity path="/commodity/commodity_add.jsp" location="350,450" dimension="220,53" />
+  <StrutsActivity path="/sellandbuy/view.jsp" location="50,1250" dimension="149,53" />
+  <StrutsActivity path="/sellandbuy/select.jsp" location="650,1250" dimension="157,53" />
+  <StrutsActivity path="/sellandbuy/add.jsp" location="350,1250" dimension="147,53" />
+  <StrutsActivity path="/main.jsp" location="650,450" dimension="85,53" />
   <StrutsActivity path="/purchase/purchase_select.jsp" location="50,650" dimension="206,53" />
-  <StrutsActivity path="indent.do" location="1250,450" dimension="98,87" />
   <StrutsActivity path="/purchase/purchase_add.jsp" location="1250,650" dimension="196,53" />
   <StrutsActivity path="/purchase/purchase_view.jsp" location="1250,850" dimension="198,53" />
   <StrutsActivity path="/sell/sell_add.jsp" location="650,850" dimension="128,53" />
   <StrutsActivity path="/sell/sell_view.jsp" location="950,850" dimension="130,53" />
   <StrutsActivity path="/sell/sell_select.jsp" location="950,650" dimension="138,53" />
-  <StrutsActivity path="/main.jsp" location="650,450" dimension="85,53" />
   <StrutsActivity path="/sellindent" location="950,450" dimension="92,53" />
   <StrutsActivity path="/sell_select.jsp" location="650,650" dimension="114,53" />
   <StrutsActivity path="/sell/add.jsp" location="50,850" dimension="104,53" />
   <StrutsActivity path="/sell_add.jsp" location="350,850" dimension="104,53" />
   <StrutsActivity path="/sell/purchase_view.jsp" location="50,1050" dimension="164,53" />
   <StrutsActivity path="/sell/purchase_add.jsp" location="350,1050" dimension="162,53" />
-  <StrutsActivity path="/logout.do" location="650,1050" dimension="242,104" />
-  <StrutsActivity path="/system/showAllUser.jsp" location="950,1050" dimension="173,53" />
-  <StrutsActivity path="/system/addUser.jsp" location="1250,1050" dimension="152,53" />
-  <StrutsActivity path="/system/changePassword.jsp" location="50,1250" dimension="200,53" />
-  <StrutsActivity path="/system/myInfo.jsp" location="350,1250" dimension="142,53" />
-  <StrutsActivity path="/system/success.jsp" location="650,1250" dimension="146,53" />
-  <StrutsActivity path="/system/error.jsp" location="950,1250" dimension="132,53" />
-  <StrutsActivity path="/system/modifyUser.jsp" location="1250,1250" dimension="169,53" />
+  <StrutsActivity path="/purchase/view.jsp" location="650,1050" dimension="140,53" />
+  <StrutsActivity path="/purchase/add.jsp" location="950,1050" dimension="138,53" />
+  <StrutsActivity path="/purchase/select.jsp" location="1250,1050" dimension="148,53" />
+  <StrutsActivity path="/indent.do" location="350,650" dimension="238,104" />
   <StrutsTransition id="/commodity.do,viewUI,/commodity/commodity_view.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="1084,154" />
@@ -41,22 +38,28 @@
       <AbsolutePoint location="166,450" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/system.do,success,/system/success.jsp,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_sell_viewUI,/sellandbuy/view.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="793,154" />
-      <AbsolutePoint location="793,199" />
-      <AbsolutePoint location="1168,199" />
-      <AbsolutePoint location="1168,1229" />
-      <AbsolutePoint location="723,1229" />
-      <AbsolutePoint location="723,1250" />
+      <AbsolutePoint location="350,718" />
+      <AbsolutePoint location="-25,718" />
+      <AbsolutePoint location="-25,1276" />
+      <AbsolutePoint location="50,1276" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/system.do,showAllUser,/system/showAllUser.jsp,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_selectUI,/sellandbuy/select.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="853,154" />
-      <AbsolutePoint location="853,948" />
-      <AbsolutePoint location="1036,948" />
-      <AbsolutePoint location="1036,1050" />
+      <AbsolutePoint location="588,718" />
+      <AbsolutePoint location="805,718" />
+      <AbsolutePoint location="805,1250" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/indent.do,forward_sell_view,/indent.do,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="360,650" />
+      <AbsolutePoint location="360,598" />
+      <AbsolutePoint location="298,598" />
+      <AbsolutePoint location="298,660" />
+      <AbsolutePoint location="350,660" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/commodity.do,show,/commodity.do,1" routingType="0">
@@ -68,169 +71,35 @@
       <AbsolutePoint location="1218,102" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/indent.do,purchaseviewUI,/purchase/purchase_view.jsp,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_purchase_addUI,/sellandbuy/add.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="588,748" />
-      <AbsolutePoint location="1348,748" />
-      <AbsolutePoint location="1348,850" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,deleteUser,/system/showUser.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="823,154" />
-      <AbsolutePoint location="823,352" />
-      <AbsolutePoint location="1027,352" />
-      <AbsolutePoint location="1027,303" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,myInfo,/system/showUser.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="892,102" />
-      <AbsolutePoint location="913,102" />
-      <AbsolutePoint location="913,412" />
-      <AbsolutePoint location="1087,412" />
-      <AbsolutePoint location="1087,303" />
+      <AbsolutePoint location="527,754" />
+      <AbsolutePoint location="527,1276" />
+      <AbsolutePoint location="497,1276" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/system.do,showUser,/system/showUser.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="793,154" />
-      <AbsolutePoint location="793,276" />
+      <AbsolutePoint location="749,154" />
+      <AbsolutePoint location="749,276" />
       <AbsolutePoint location="950,276" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/indent.do,sellview,/indent.do,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_add,/indent.do,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="499,650" />
-      <AbsolutePoint location="499,618" />
-      <AbsolutePoint location="636,618" />
-      <AbsolutePoint location="636,666" />
-      <AbsolutePoint location="588,666" />
+      <AbsolutePoint location="469,650" />
+      <AbsolutePoint location="469,578" />
+      <AbsolutePoint location="612,578" />
+      <AbsolutePoint location="612,658" />
+      <AbsolutePoint location="588,658" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/system.do,deleteUser,/system/showAllUser.jsp,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_purchase_viewUI,/sellandbuy/view.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="749,154" />
-      <AbsolutePoint location="749,618" />
-      <AbsolutePoint location="1103,618" />
-      <AbsolutePoint location="1103,1050" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,changePassword,/system/showUser.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="749,154" />
-      <AbsolutePoint location="749,382" />
-      <AbsolutePoint location="1057,382" />
-      <AbsolutePoint location="1057,303" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="login;6,null,/login.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="98,337" />
-      <AbsolutePoint location="98,382" />
-      <AbsolutePoint location="663,382" />
-      <AbsolutePoint location="663,303" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,showAllUser,/system/showUser.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="793,154" />
-      <AbsolutePoint location="793,276" />
-      <AbsolutePoint location="950,276" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,modifyUser,/system/showAllUser.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="892,102" />
-      <AbsolutePoint location="907,102" />
-      <AbsolutePoint location="907,1076" />
-      <AbsolutePoint location="950,1076" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/indent.do,selladd,indent.do,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="451,650" />
-      <AbsolutePoint location="451,518" />
-      <AbsolutePoint location="1250,518" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/logout.do,success,/login.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="793,1050" />
-      <AbsolutePoint location="793,318" />
-      <AbsolutePoint location="693,318" />
-      <AbsolutePoint location="693,303" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/indent.do,purchaseselectUI,/purchase/purchase_select.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="350,676" />
-      <AbsolutePoint location="256,676" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/commodity.do,addUI,/commodity/commodity_add.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="1054,154" />
-      <AbsolutePoint location="1054,169" />
-      <AbsolutePoint location="461,169" />
-      <AbsolutePoint location="461,450" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,addUser,/system/addUser.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="823,154" />
-      <AbsolutePoint location="823,1010" />
-      <AbsolutePoint location="1326,1010" />
-      <AbsolutePoint location="1326,1050" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,myInfo,/system/myInfo.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="771,50" />
-      <AbsolutePoint location="771,-175" />
-      <AbsolutePoint location="-25,-175" />
-      <AbsolutePoint location="-25,1199" />
-      <AbsolutePoint location="421,1199" />
-      <AbsolutePoint location="421,1250" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,updateUser,/system/showAllUser.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="771,102" />
-      <AbsolutePoint location="1036,1076" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/system.do,error,/system/error.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="892,102" />
-      <AbsolutePoint location="907,102" />
-      <AbsolutePoint location="907,1276" />
-      <AbsolutePoint location="950,1276" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/indent.do,purchaseadd,/indent.do,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="469,754" />
-      <AbsolutePoint location="469,980" />
-      <AbsolutePoint location="634,980" />
-      <AbsolutePoint location="634,688" />
-      <AbsolutePoint location="588,688" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/login.do,success,/login.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="196,154" />
-      <AbsolutePoint location="196,352" />
-      <AbsolutePoint location="663,352" />
-      <AbsolutePoint location="663,303" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/indent.do,sellviewUI,/sell/sell_view.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="409,754" />
-      <AbsolutePoint location="409,808" />
-      <AbsolutePoint location="1015,808" />
-      <AbsolutePoint location="1015,850" />
+      <AbsolutePoint location="350,701" />
+      <AbsolutePoint location="327,701" />
+      <AbsolutePoint location="327,1276" />
+      <AbsolutePoint location="199,1276" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/login.do,save,/login.jsp,1" routingType="0">
@@ -241,30 +110,78 @@
       <AbsolutePoint location="693,250" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/system.do,changePassword,/system/changePassword.jsp,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_sell_selectUI,/sellandbuy/select.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="741,50" />
-      <AbsolutePoint location="741,-100" />
-      <AbsolutePoint location="328,-100" />
-      <AbsolutePoint location="328,1276" />
-      <AbsolutePoint location="250,1276" />
+      <AbsolutePoint location="557,754" />
+      <AbsolutePoint location="557,1276" />
+      <AbsolutePoint location="650,1276" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/indent.do,purchaseview,/indent.do,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_addUI,/sellandbuy/add.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="527,754" />
+      <AbsolutePoint location="527,1276" />
+      <AbsolutePoint location="497,1276" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/indent.do,forward_sell_add,/indent.do,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="578,650" />
+      <AbsolutePoint location="578,598" />
+      <AbsolutePoint location="640,598" />
+      <AbsolutePoint location="640,660" />
+      <AbsolutePoint location="588,660" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/indent.do,forward_purchase_selectUI,/sellandbuy/select.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="469,650" />
-      <AbsolutePoint location="469,582" />
-      <AbsolutePoint location="612,582" />
-      <AbsolutePoint location="612,656" />
-      <AbsolutePoint location="588,656" />
+      <AbsolutePoint location="469,548" />
+      <AbsolutePoint location="805,548" />
+      <AbsolutePoint location="805,1250" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/system.do,addUser,/system/showUser.jsp,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_viewUI,/sellandbuy/view.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="853,154" />
-      <AbsolutePoint location="853,318" />
-      <AbsolutePoint location="997,318" />
-      <AbsolutePoint location="997,303" />
+      <AbsolutePoint location="350,688" />
+      <AbsolutePoint location="328,688" />
+      <AbsolutePoint location="328,1276" />
+      <AbsolutePoint location="199,1276" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="login;6,null,/login.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="98,337" />
+      <AbsolutePoint location="98,382" />
+      <AbsolutePoint location="693,382" />
+      <AbsolutePoint location="693,303" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/indent.do,forward_purchase_view,/indent.do,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="469,754" />
+      <AbsolutePoint location="469,799" />
+      <AbsolutePoint location="695,799" />
+      <AbsolutePoint location="695,748" />
+      <AbsolutePoint location="588,748" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/indent.do,forward_purchase_add,/indent.do,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="439,754" />
+      <AbsolutePoint location="439,829" />
+      <AbsolutePoint location="1355,829" />
+      <AbsolutePoint location="1355,718" />
+      <AbsolutePoint location="588,718" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/indent.do,forward_sell_addUI,/sellandbuy/add.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="588,688" />
+      <AbsolutePoint location="612,688" />
+      <AbsolutePoint location="612,1178" />
+      <AbsolutePoint location="423,1178" />
+      <AbsolutePoint location="423,1250" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="main;6,null,/main.jsp,1" routingType="0">
@@ -275,44 +192,21 @@
       <AbsolutePoint location="693,450" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/system.do,modifyUser,/system/showUser.jsp,1" routingType="0">
+  <StrutsTransition id="/indent.do,forward_view,/indent.do,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="883,154" />
-      <AbsolutePoint location="883,199" />
-      <AbsolutePoint location="1024,199" />
-      <AbsolutePoint location="1024,250" />
+      <AbsolutePoint location="469,754" />
+      <AbsolutePoint location="469,799" />
+      <AbsolutePoint location="695,799" />
+      <AbsolutePoint location="695,748" />
+      <AbsolutePoint location="588,748" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/system.do,modifyUser,/system/modifyUser.jsp,1" routingType="0">
+  <StrutsTransition id="/commodity.do,addUI,/commodity/commodity_add.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="801,50" />
-      <AbsolutePoint location="801,-250" />
-      <AbsolutePoint location="1613,-250" />
-      <AbsolutePoint location="1613,1276" />
-      <AbsolutePoint location="1419,1276" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/indent.do,selladdUI,/sell/sell_add.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="491,754" />
-      <AbsolutePoint location="491,876" />
-      <AbsolutePoint location="650,876" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/indent.do,sellselectUI,/sell/sell_select.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="439,754" />
-      <AbsolutePoint location="439,778" />
-      <AbsolutePoint location="1015,778" />
-      <AbsolutePoint location="1015,703" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/indent.do,purchaseaddUI,/purchase/purchase_add.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="588,718" />
-      <AbsolutePoint location="1348,718" />
-      <AbsolutePoint location="1348,703" />
+      <AbsolutePoint location="1054,154" />
+      <AbsolutePoint location="1054,169" />
+      <AbsolutePoint location="461,169" />
+      <AbsolutePoint location="461,450" />
     </AutomaticBendpoints>
   </StrutsTransition>
 </FlowViewLayout>
-
