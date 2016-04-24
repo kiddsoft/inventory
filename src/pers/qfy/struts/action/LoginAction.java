@@ -75,8 +75,9 @@ public class LoginAction extends Action{
 	    	}
 	    	//设置是否管理员以及审核者 以便显示一些信息
 	    	HttpSession session = request.getSession(false);
+	    	session.setAttribute("user", userdata);
 	    	session.setAttribute("isadmin", userdata.getLevel());//管理员 0与1表示管理员，2表示普通用户
-	    	session.setAttribute("ismgr", userdata.getLevel());//审核者 1表示是审核者
+	    	session.setAttribute("ismgr", userdata.getIsmgr());//审核者 1表示是审核者
 	    	session.setAttribute("user_id", userdata.getUsername());
 	    	session.setAttribute("user_name", userdata.getName());
 	

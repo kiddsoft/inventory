@@ -13,8 +13,8 @@
   <global-exceptions />
   
   <global-forwards>
-  	<forward name="login" path="/login.jsp" />
-  	<forward name="main" path="/main.jsp"/>
+  	<forward name="login" path="/login.jsp" redirect="true" />
+  	<forward name="main" path="/main.jsp" redirect="true" />
   </global-forwards>
   
   <action-mappings>
@@ -22,10 +22,22 @@
   		<forward name="save" path="/login.jsp" />
   	</action>
   	
+  	<action path="/logout" scope="request" type="pers.qfy.struts.action.LogoutAction">
+  		<forward name="success" path="/login.jsp" />
+  	</action>
+  	
   	<action path="/langset" name="" scope="request" type="pers.qfy.struts.action.LangSetAction" />
   	
   	<action path="/system" name="userForm" scope="request" type="pers.qfy.struts.action.SystemAction">
-  		<forward name="showUser" path="/system/showUser.jsp" />
+  		<forward name="addUser" path="/system/addUser.jsp" />
+  		<forward name="deleteUser" path="/system/showAllUser.jsp" />
+  		<forward name="updateUser" path="/system/showAllUser.jsp" />
+  		<forward name="showAllUser" path="/system/showAllUser.jsp" />
+  		<forward name="modifyUser" path="/system/modifyUser.jsp" />
+  		<forward name="myInfo" path="/system/myInfo.jsp" />
+  		<forward name="changePassword" path="/system/changePassword.jsp" />
+  		<forward name="success" path="/system/success.jsp" />
+  		<forward name="error" path="/system/error.jsp" />
   	</action>
   	
   	<action path="/commodity" name="commodityForm" scope="request" type="pers.qfy.struts.action.CommodityAction">

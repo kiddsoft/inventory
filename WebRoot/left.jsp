@@ -179,12 +179,12 @@
 					<table width="80%" align="center">
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="./system/password.jsp" target="right" class="sub1">修改密码</a>
+								<a href="system.do?command=myInfo" target="right" class="sub1">我的信息</a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="system.do?command=userShow" target="right" class="sub1">用户信息</a>
+								<a href="system.do?command=changePassword" target="right" class="sub1">修改密码</a>
 							</td>
 						</tr>
 
@@ -192,7 +192,7 @@
 						<logic:notEmpty name="isadmin" scope="session">
 							<tr>
 								<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-									<a href="system.do?command=userAll" target="right" class="sub1">全部用户</a>
+									<a href="system.do?command=showAllUser" target="right" class="sub1">查看用户</a>
 								</td>
 							</tr>
 						</logic:notEmpty>
