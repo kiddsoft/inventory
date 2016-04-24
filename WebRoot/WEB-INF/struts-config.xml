@@ -39,19 +39,21 @@
   	
   	<action path="/indent" name="indentForm" scope="request" type="pers.qfy.struts.action.IndentAction">
   		<!-- 进行商品编号进行查询，并把结果存起来，然后跳到添加订单页面 -->
-  		<!-- 销售的 -->
-  		<forward name="sellselectUI" path="/sell/sell_select.jsp"/>
-  		<forward name="selladd" path="indent.do?command=sell_add"/>
-  		<forward name="selladdUI" path="/sell/sell_add.jsp"/>
-  		<forward name="sellview" path="/indent.do?command=sell_view"/>
-  		<forward name="sellviewUI" path="/sell/sell_view.jsp"/>
 
-  		<!-- 采购的 -->
-  		<forward name="purchaseselectUI" path="/purchase/purchase_select.jsp"/>
-  		<forward name="purchaseadd" path="/indent.do?command=purchase_add"/>
-  		<forward name="purchaseaddUI" path="/purchase/purchase_add.jsp"/>
-  		<forward name="purchaseview" path="/indent.do?command=purchase_view"/>
-  		<forward name="purchaseviewUI" path="/purchase/purchase_view.jsp"/>
+  		<!-- 销售与采购页面相同  只是参数不相同 -->
+  		<!-- command参数用于控制功能   pcmd用于表明动作是属于销售还是采购的 -->
+  		<forward name="forward_sell_selectUI" path="/sellandbuy/select.jsp?pcmd=sell"/>
+  		<forward name="forward_sell_add" path="/indent.do?command=add&amp;pcmd=sell"/>
+  		<forward name="forward_sell_addUI" path="/sellandbuy/add.jsp?pcmd=sell"/>
+  		<forward name="forward_sell_view" path="/indent.do?command=view&amp;pcmd=sell"/>
+  		<forward name="forward_sell_viewUI" path="/sellandbuy/view.jsp?pcmd=sell"/>
+  		
+  		
+  		<forward name="forward_purchase_selectUI" path="/sellandbuy/select.jsp?pcmd=purchase"/>
+  		<forward name="forward_purchase_add" path="/indent.do?command=add&amp;pcmd=purchase"/>
+  		<forward name="forward_purchase_addUI" path="/sellandbuy/add.jsp?pcmd=purchase"/>
+  		<forward name="forward_purchase_view" path="/indent.do?command=view&amp;pcmd=purchase"/>
+  		<forward name="forward_purchase_viewUI" path="/sellandbuy/view.jsp?pcmd=purchase"/>
   	</action>
   	
   </action-mappings>

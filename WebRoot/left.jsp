@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean"	prefix="bean"%>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html"	prefix="html"%>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic"%>
@@ -66,17 +66,43 @@
 	<body topmargin="0">
 		<!-- 搞一个表 宽度200  高度 背景颜色  单元格边距   单元格间距-->
 		<table style="background-color: aliceblue; height: 100%; width: 100%" cellpadding="0" cellspacing="0">
+		
+		
+		
+			<!-- 大项 公告栏 -->
+			<tr>
+				<td onclick="menu(0)" height="33" background="img/m1.jpg">
+					<!-- 使用font标签 然后使用m1样式 -->
+					<font class="m1">公告栏</font>
+				</td>
+			</tr>
+			<tr>
+				<td id="sub_0" style="display: none">
+					<table width="80%" align="center">
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="indent.do?command=sellview" target="right" class="sub1">公告条</a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+			
+			
+			
+		
 			<!-- 大项 库存管理 -->
 			<tr>
-				<!-- 点击事件触发menu(0)，高度33，背景图片 -->
-				<td onclick="menu(0)" height="33" background="img/m1.jpg">
+				<!-- 点击事件触发menu(10)，高度33，背景图片 -->
+				<td onclick="menu(10)" height="33" background="img/m1.jpg">
 					<!-- 使用font标签 然后使用m1样式 -->
 					<font class="m1">货物管理</font>
 				</td>
 			</tr>
 			<tr>
-				<!-- 设置ID为 sub_0,以方便脚本函数调用 风格为不显示 -->
-				<td id="sub_0" style="display: none">
+				<!-- 设置ID为 sub_10,以方便脚本函数调用 风格为不显示 -->
+				<td id="sub_10" style="display: none">
 					<!-- 插入一个表格 宽度是80% 居中 -->
 					<table width="80%" align="center">
 						<!-- 高度22 设置鼠标选中与离开的背景事件 -->
@@ -107,52 +133,106 @@
 				</td>
 			</tr>
 
-			<!-- 大项 订单管理 -->
+
+
+
+			<!-- 大项 销售管理 -->
 			<tr>
-				<td onclick="menu(1)" height="33" background="img/m1.jpg">
-					<font class="m1"><bean:message key="purchase.manager" /></font>
+				<td onclick="menu(20)" height="33" background="img/m1.jpg">
+					<font class="m1"><bean:message key="sell.manager" /></font>
 				</td>
 			</tr>
 			<tr>
-				<td id="sub_1" style="display: none">
+				<td id="sub_20" style="display: none">
 					<table width="80%" align="center">
 						<tr>
 							<td id="m1" height="22" onmouseover="mouseMov(1,0)" onmouseout="mouseMov(1,1)">
-								<a href="indent.do?command=purchaseview" target="right" class="sub1">查看全部订单</a>
+								<a href="indent.do?command=view&pcmd=sell" target="right" class="sub1"><bean:message key="indent.see.all.indent"/></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="./purchase/purchase_select.jsp" target="right" class="sub1"><bean:message key="indent.add" /></a>
+								<!-- 添加一个参数pcmd=sell ,用于判断是否销售还是采购 -->
+								<a href="./sellandbuy/select.jsp?pcmd=sell" target="right" class="sub1"><bean:message key="indent.add" /></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=purchaseview" target="right" class="sub1">待处理订单</a>
+								<a href="indent.do?command=view&pcmd=sell" target="right" class="sub1"><bean:message key="indent.need.process"/></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=purchaseview" target="right" class="sub1">完成的订单</a>
+								<a href="indent.do?command=view&pcmd=sell" target="right" class="sub1"><bean:message key="indent.finish.indent"/></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=purchaseview" target="right" class="sub1">历史记录</a>
+								<a href="indent.do?command=view&pcmd=sell" target="right" class="sub1"><bean:message key="indent.hitstroy"/></a>
 							</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
+			
+			
+			
+			
+			<!-- 大项 采购管理 -->
+			<tr>
+				<td onclick="menu(30)" height="33" background="img/m1.jpg">
+					<font class="m1"><bean:message key="purchase.manager" /></font>
+				</td>
+			</tr>
+			<tr>
+				<td id="sub_30" style="display: none">
+					<table width="80%" align="center">
+						<tr>
+							<td id="m1" height="22" onmouseover="mouseMov(1,0)" onmouseout="mouseMov(1,1)">
+								<a href="indent.do?command=view&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.see.all.indent"/></a>
+							</td>
+						</tr>
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="./sellandbuy/select.jsp?pcmd=purchase" target="right" class="sub1"><bean:message key="indent.add" /></a>
+							</td>
+						</tr>
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="indent.do?command=view&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.need.process"/></a>
+							</td>
+						</tr>
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="indent.do?command=view&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.finish.indent"/></a>
+							</td>
+						</tr>
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="indent.do?command=view&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.hitstroy"/></a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+
+
+
+
 
 			<!-- 大项 业务处理 -->
 			<tr>
-				<td onclick="menu(2)" height="33" background="img/m1.jpg">
+				<td onclick="menu(40)" height="33" background="img/m1.jpg">
 					<font class="m1">业务处理</font>
 				</td>
 			</tr>
 			<tr>
-				<td id="sub_2" style="display: none">
+				<td id="sub_40" style="display: none">
 					<table width="80%" align="center">
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
@@ -170,12 +250,12 @@
 
 			<!-- 大项 系统管理 -->
 			<tr>
-				<td onclick="menu(3)" height="33" background="img/m1.jpg">
+				<td onclick="menu(50)" height="33" background="img/m1.jpg">
 					<font class="m1">系统管理</font>
 				</td>
 			</tr>
 			<tr>
-				<td id="sub_3" style="display: none">
+				<td id="sub_50" style="display: none">
 					<table width="80%" align="center">
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
@@ -201,24 +281,7 @@
 			</tr>
 
 			
-			<!-- 大项 公告栏 -->
-			<tr>
-				<td onclick="menu(4)" height="33" background="img/m1.jpg">
-					<!-- 使用font标签 然后使用m1样式 -->
-					<font class="m1">公告栏</font>
-				</td>
-			</tr>
-			<tr>
-				<td id="sub_4" style="display: none">
-					<table width="80%" align="center">
-						<tr>
-							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=sellview" target="right" class="sub1">公告条</a>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
+			
 			
 			<!-- 最后一格用一个空的，并高度填百分百，这样子前面的才会紧凑排列 -->
 			<tr>

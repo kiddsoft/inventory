@@ -23,52 +23,62 @@ import pers.qfy.struts.form.CommodityForm;
 import pers.qfy.struts.form.IndentForm;
 import pers.qfy.util.FUtil;
 
-public class IndentAction extends Action{
+/*
+ * 参数要重新设计，使用双参数的方式 应该不需要使用session来记录了
+ * */
+public class IndentAction extends BaseAction{
 	IndentForm cf=null;
 	TrueIndentDAO dao = null;
 
+	//采购与销售的都会入进这里
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
     		HttpServletRequest request, HttpServletResponse response)
 	{
 		dao = new TrueIndentDAO();
 		cf = (IndentForm)form;
 		
-		String cmd=request.getParameter("command");
-		FUtil.print("IndentAction当前命令" + cmd);
+		//command参数用于控制功能   pcmd用于表明动作是属于销售还是采购的
+		String cmd  = request.getParameter("command");
+		String pcmd = request.getParameter("pcmd");
+
+		FUtil.print("IndentAction当前命令:cmd=" + cmd + "   pcmd=" + pcmd);
 		
 		ActionForward af=null;
-		if(cmd == null){
-			af=mapping.findForward("show");
+		
+		if(pcmd.equals("sell"))
+		{
+			//销售操作
+			if(cmd.equals("select"))
+			{
+				af = Select_sell( mapping, form, request, response);
+			}
+			else if(cmd.equals("add"))
+			{
+				af = Add_sell( mapping, form, request, response);
+			}
+			else if(cmd.equals("view"))
+			{
+				af = View_sell( mapping, form, request, response);
+			}
 		}
-		else if(cmd.equals("sellselect")){
-			af=Select_sell(mapping,form,request,response);
-		}
-		else if(cmd.equals("selladd")){
-			af=Add_sell(mapping,form,request,response);
-		}
-		else if(cmd.equals("sellview")){
-			af=View_sell(mapping,form,request,response);
-		}
-		//下面的是采购的
-		else if(cmd.equals("purchaseselect")){
-			af=Select_purchase(mapping,form,request,response);
-		}
-		else if(cmd.equals("purchaseadd")){
-			af=Add_purchase(mapping,form,request,response);
-		}
-		else if(cmd.equals("purchaseview")){
-			af=View_purchase(mapping,form,request,response);
+		else
+		{
+			//采购操作
+			if(cmd.equals("select"))
+			{
+				af = Select_purchase( mapping, form, request, response);
+			}
+			else if(cmd.equals("add"))
+			{
+				af = Add_purchase( mapping, form, request, response);
+			}
+			else if(cmd.equals("view"))
+			{
+				af = View_purchase( mapping, form, request, response);
+			}
 		}
 		return af;
 	}
-	//查询全部
-    public ActionForward View_sell(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
-    	//将查找的内容保存到resultdata中，jsp页面在运行时就会去读取了
-    	request.setAttribute("indentdata", null);
-    	List<TbIndent> li = dao.QueryForKeyOne(dao.TABLENAME, dao.ISOUTSELL, "1", dao.CLASSNAME);
-    	request.setAttribute("indentdata", li);
-    	return mapping.findForward("sellviewUI");
-    }
 	
 	//根据商品编号，得出信息，然后保存，再跳入添加订单页面
     public ActionForward Select_sell(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
@@ -76,12 +86,12 @@ public class IndentAction extends Action{
     	TbCommodity tb = (TbCommodity)dao.QueryCommodityInfo(cf.getCno());
     	if(tb == null){
     		//没有该ID
-    		return mapping.findForward("sellselectUI");
+    		return mapping.findForward("forward_sell_selectUI");
     	}
     	else{
     		//保存商品信息，然后跳到add页面
     		request.setAttribute("indent_info", tb);
-    		return mapping.findForward("selladdUI");
+    		return mapping.findForward("forward_sell_addUI");
     	}
     }
     
@@ -95,9 +105,9 @@ public class IndentAction extends Action{
     	TbUser userdata = (TbUser)dao.QueryForKeyOneResultOne("tb_user","username", userId, TbUser.class);
     	TbCommodity tb = (TbCommodity)dao.QueryCommodityInfo(cf.getCno());
     	
-    	int allPrice = tb.getOutprice() * cf.getIcount();
-    	int isoutsell = 1;
-    	int istate = 0;
+    	int allPrice  = tb.getOutprice() * cf.getIcount();
+    	int isoutsell = 1;//查询销售
+    	int istate    = 0;//当前状态设置为未审核
     	Timestamp itime = FUtil.getSystemTime();
     	Timestamp endtime = FUtil.getSystemTime();
     	
@@ -105,22 +115,25 @@ public class IndentAction extends Action{
     			cf.getIcount(),allPrice,isoutsell,istate,itime, endtime);
     	
     	dao.saveDate(data);
-    	return mapping.findForward("selladdUI");
+    	return mapping.findForward("forward_sell_view");
     }
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-  //查询全部
-    public ActionForward View_purchase(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
+    
+	//查询全部
+    public ActionForward View_sell(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
     	//将查找的内容保存到resultdata中，jsp页面在运行时就会去读取了
-    	FUtil.print("进行了VIEW");
     	request.setAttribute("indentdata", null);
-    	List<TbIndent> li = dao.QueryForKeyOne(dao.TABLENAME, dao.ISOUTSELL, "0", dao.CLASSNAME);
-    	FUtil.print("个数是"+li.size());
+    	List<TbIndent> li = dao.QueryForKeyOne(dao.TABLENAME, dao.ISOUTSELL, "1", dao.CLASSNAME);
     	request.setAttribute("indentdata", li);
-    	return mapping.findForward("purchaseviewUI");
+    	return mapping.findForward("forward_sell_viewUI");
     }
+	
+	
+    
+    
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
     
   //根据商品编号，得出信息，然后保存，再跳入添加订单页面
     public ActionForward Select_purchase(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
@@ -128,16 +141,16 @@ public class IndentAction extends Action{
     	TbCommodity tb = (TbCommodity)dao.QueryCommodityInfo(cf.getCno());
     	if(tb == null){
     		//没有该ID
-    		return mapping.findForward("purchaseselectUI");
+    		return mapping.findForward("forward_purchase_selectUI");
     	}
     	else{
     		//保存商品信息，然后跳到add页面
     		request.setAttribute("indent_info", tb);
-    		return mapping.findForward("purchaseaddUI");
+    		return mapping.findForward("forward_purchase_addUI");
     	}
     }
     
-    //添加订单
+  //添加订单
     public ActionForward Add_purchase(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
     	String ss = cf.getIno() + " " + cf.getCno() + "" + cf.getIcount();
     	FUtil.print("当前获取内容 " + ss);
@@ -147,9 +160,9 @@ public class IndentAction extends Action{
     	TbUser userdata = (TbUser)dao.QueryForKeyOneResultOne("tb_user","username", userId, TbUser.class);
     	TbCommodity tb = (TbCommodity)dao.QueryCommodityInfo(cf.getCno());
     	
-    	int allPrice = tb.getOutprice() * cf.getIcount();
-    	int isoutsell = 0;
-    	int istate = 0;
+    	int allPrice  = tb.getOutprice() * cf.getIcount();
+    	int isoutsell = 0;//查询采购
+    	int istate    = 0;
     	Timestamp itime = FUtil.getSystemTime();
     	Timestamp endtime = FUtil.getSystemTime();
     	
@@ -157,6 +170,18 @@ public class IndentAction extends Action{
     			cf.getIcount(),allPrice,isoutsell,istate,itime, endtime);
     	
     	dao.saveDate(data);
-    	return mapping.findForward("purchaseaddUI");
+    	return mapping.findForward("forward_purchase_view");
     }
+    
+  //查询全部
+    public ActionForward View_purchase(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
+    	//将查找的内容保存到resultdata中，jsp页面在运行时就会去读取了
+    	FUtil.print("进行了VIEW");
+    	request.setAttribute("indentdata", null);
+    	List<TbIndent> li = dao.QueryForKeyOne(dao.TABLENAME, dao.ISOUTSELL, "0", dao.CLASSNAME);
+    	FUtil.print("个数是"+li.size());
+    	request.setAttribute("indentdata", li);
+    	return mapping.findForward("forward_purchase_viewUI");
+    }
+
 }

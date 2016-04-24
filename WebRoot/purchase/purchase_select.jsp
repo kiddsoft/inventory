@@ -3,6 +3,13 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%
+//通过这个参数来判断是否是销售的
+String pcmd = request.getParameter("pcmd");
+if(pcmd.equals("sell"))
+{
+	session.setAttribute("select", "sell");
+}
+
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
