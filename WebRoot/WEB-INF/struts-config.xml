@@ -8,6 +8,7 @@
   	<form-bean name="userForm" type="pers.qfy.struts.form.UserForm" />
   	<form-bean name="commodityForm" type="pers.qfy.struts.form.CommodityForm" />
   	<form-bean name="indentForm" type="pers.qfy.struts.form.IndentForm" />
+    <form-bean name="addBBSForm" type="pers.qfy.struts.form.AddBBSForm" />
   </form-beans>
   
   <global-exceptions />
@@ -67,6 +68,17 @@
   		<forward name="forward_purchase_view" path="/indent.do?command=view&amp;pcmd=purchase"/>
   		<forward name="forward_purchase_viewUI" path="/sellandbuy/view.jsp?pcmd=purchase"/>
   	</action>
+  	
+    <action name="addBBSForm" path="/addBBS" scope="request" type="pers.qfy.struts.action.AddBBSAction">
+    	<forward name="input" path="/bbs/addBBS.jsp" />
+    	<forward name="error" path="/bbs/addBBS.jsp" />
+    	<forward name="success" path="/showBBS.do" redirect="true" />
+    </action>
+    
+    <action path="/showBBS" scope="request" type="pers.qfy.struts.action.ShowBBSAction">
+    	<forward name="success" path="/bbs/showBBS.jsp"/>
+    	<forward name="detail" path="/bbs/showBBSDetail.jsp"/>
+    </action>
   	
   </action-mappings>
   

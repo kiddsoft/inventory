@@ -21,6 +21,7 @@
 		<mapping resource="pers/qfy/dao/TbIndent.hbm.xml" />
 		<mapping resource="pers/qfy/dao/TbUser.hbm.xml" />
 		<mapping resource="pers/qfy/dao/TbCommodity.hbm.xml" />
+		<mapping resource="pers/qfy/dao/TbBbs.hbm.xml" />
 	</session-factory>
 
 </hibernate-configuration>

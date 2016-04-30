@@ -81,7 +81,12 @@
 					<table width="80%" align="center">
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=sellview" target="right" class="sub1">公告条</a>
+								<a href="showBBS.do" target="right" class="sub1">显示全部</a>
+							</td>
+						</tr>
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="addBBS.do" target="right" class="sub1">添加公告</a>
 							</td>
 						</tr>
 					</table>

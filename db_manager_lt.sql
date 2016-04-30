@@ -90,3 +90,16 @@ INSERT INTO `tb_user` VALUES ('666', 'admin', '出卖', '1', 'admin', '0', '1', 
 INSERT INTO `tb_user` VALUES ('7777', 'admin', '卖出', '1', 'admin', '0', '1', '0', '2016-03-27 21:57:28');
 INSERT INTO `tb_user` VALUES ('8888', 'admin', '样样有', '1', 'admin', '1', '1', '0', '2016-03-27 21:57:28');
 INSERT INTO `tb_user` VALUES ('admin', 'admin', '小二明', '0', 'admin', '1', '1', '1', '2016-03-27 22:23:05');
+
+-- ----------------------------
+-- Table structure for `tb_bbs`
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_bbs`;
+CREATE TABLE `tb_bbs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `createtime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
