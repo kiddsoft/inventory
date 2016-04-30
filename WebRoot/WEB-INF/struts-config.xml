@@ -30,9 +30,9 @@
   	
   	<action path="/system" name="userForm" scope="request" type="pers.qfy.struts.action.SystemAction">
   		<forward name="addUser" path="/system/addUser.jsp" />
-  		<forward name="deleteUser" path="/system/showAllUser.jsp" />
-  		<forward name="updateUser" path="/system/showAllUser.jsp" />
-  		<forward name="showAllUser" path="/system/showAllUser.jsp" />
+  		<forward name="deleteUser" path="/system/showUser.jsp" />
+  		<forward name="updateUser" path="/system/showUser.jsp" />
+  		<forward name="showUser" path="/system/showUser.jsp" />
   		<forward name="modifyUser" path="/system/modifyUser.jsp" />
   		<forward name="myInfo" path="/system/myInfo.jsp" />
   		<forward name="changePassword" path="/system/changePassword.jsp" />

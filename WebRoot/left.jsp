@@ -272,7 +272,7 @@
 						<logic:notEmpty name="isadmin" scope="session">
 							<tr>
 								<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-									<a href="system.do?command=showAllUser" target="right" class="sub1">查看用户</a>
+									<a href="system.do?command=showUser" target="right" class="sub1">查看用户</a>
 								</td>
 							</tr>
 						</logic:notEmpty>

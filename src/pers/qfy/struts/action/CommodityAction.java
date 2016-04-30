@@ -1,6 +1,7 @@
 package pers.qfy.struts.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.*;
 import org.apache.struts.action.*;
@@ -10,8 +11,10 @@ import pers.qfy.daotrue.TrueCommodityDAO;
 import pers.qfy.struts.form.*;
 import pers.qfy.util.*;
 
-public class CommodityAction extends Action{
+public class CommodityAction extends BaseAction{
 	TrueCommodityDAO dao;
+	String currPage;
+	
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
     {
@@ -21,6 +24,14 @@ public class CommodityAction extends Action{
     	FUtil.print("CommodityAction当前命令" + cmd);
     	
     	CommodityForm cf=(CommodityForm)form;
+    	
+    	currPage = request.getParameter("currPage");
+		if(currPage==null || currPage=="")
+		{
+			currPage = "1";
+		}
+		this.locale = this.getLocale(request);
+		this.message = this.getResources(request);
 
     	ActionForward af=null;
     	dao = new TrueCommodityDAO();
@@ -70,13 +81,26 @@ public class CommodityAction extends Action{
     //查询全部
     public ActionForward View(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
     	//将查找的内容保存到resultdata中，jsp页面在运行时就会去读取了
-    	request.setAttribute("resultdata", null);
-    	List<TbCommodity> li = dao.Query("*", "");
-    	for(int i=0;i<li.size();i++){
-    		TbCommodity obj = li.get(i);
-    		FUtil.print(obj.getName() + " 读到的数据 " + obj.getInprice());
-    	}
-    	request.setAttribute("resultdata", li);
+//    	request.setAttribute("resultdata", null);
+//    	//List<TbCommodity> li = dao.Query("*", "");
+//    	String hql = "select count(*) from TbCommodity";
+//    	Long count = dao.GetCount(hql);
+//    	List<TbCommodity> li = dao.QueryRange("from TbCommodity", 0, 10);
+//    	for(int i=0;i<li.size();i++){
+//    		TbCommodity obj = li.get(i);
+//    		FUtil.print(obj.getName() + " 读到的数据 " + obj.getInprice());
+//    	}
+//    	request.setAttribute("count", count);
+//    	request.setAttribute("resultdata", li);
+    	String action = "commodity.do?command=view";
+    	
+    	//参数二就是Form的名字
+    	Map map = getPage(dao, "commodityForm", action, Integer.parseInt(currPage), "select * from tb_commodity", dao.CLASSNAME);
+    	
+    	request.setAttribute("list", map.get("list"));
+		//将结果集放到分页条中
+		request.setAttribute("pagingBar", map.get("bar"));
+
     	return mapping.findForward("viewUI");
     }
     

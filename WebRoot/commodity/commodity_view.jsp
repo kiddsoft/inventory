@@ -36,10 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	<td class="td_right"><bean:message key="button.change" /></td>
 	  </tr>
 	  <!-- 从request中读取list 然后使用迭代器ele来遍历list -->
-	  <logic:present name="resultdata" scope="request">
-	  	<logic:notEmpty name="resultdata" scope="request">
+	  <logic:present name="list" scope="request">
+	  	<logic:notEmpty name="list" scope="request">
 	  		<form action="commodity.do?command=delete" method='post'>
-  			<logic:iterate id="ele" name="resultdata" scope="request">
+  			<logic:iterate id="ele" name="list" scope="request">
 				  <tr>
 				  	<td>
 	        			<input type="hidden" name="allcno" value='<bean:write name="ele" property="cno" />'>
@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</td>
 				  </tr>
 			</logic:iterate>
-				  <tr><td>
+				  <tr><td colspan="9">
 				  	<table border="0" width="100%">
 				  		<tr>
 				  			<td>
@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  			</td>
 			</form>
 				  			<td>
-				  				<!-- 存放页数标识 -->
+				  				<bean:write name="pagingBar" filter="false" scope="request" />
 				  			</td>
 				  		</tr>
 				  	</table>

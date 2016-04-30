@@ -22,12 +22,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<style type="text/css">
 		table {border: 0px solid black}
     tr {border: 1px solid black;}
-    tr:odd {background-color: red}
+    tr:nth-child(even) {background-color: #eee}
 		td {border: 0px solid black; padding: 5px}
 	</style>
   </head>
   <body>
-    <form action="system.do?command=deleteUser" method="post">
     <table>
     	<tr><td colspan="10" align="right"><a href="system.do?command=addUser">添加用户</a></td></tr>
     	<tr>
@@ -42,12 +41,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<td>删除</td>
     		<td>修改</td>
     	</tr>
-      <logic:present name="userList" scope="request">
-        <logic:empty name="userList" scope="request">
+      <logic:present name="list" scope="request">
+        <logic:empty name="list" scope="request">
         <tr><td colspan="10">目前没有用户</td></tr>
         </logic:empty>
-        <logic:notEmpty name="userList" scope="request">
-          <logic:iterate id="user" name="userList" scope="request">
+        <logic:notEmpty name="list" scope="request">
+          <form action="system.do?command=deleteUser" method="post">
+          <logic:iterate id="user" name="list" scope="request">
             <tr>
               <td>
                 <input type="hidden" name="all" value='<bean:write name="user" property="username"/>'>
@@ -77,13 +77,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <html:submit property="command"><bean:message key="button.delete.selected"/></html:submit>
               <html:submit property="command"><bean:message key="button.delete.all"/></html:submit>
             </td>
-            <td>
-              <!-- 存放页数标识 -->
+            </form>
+            <td colspan="9" align="right">
+              <bean:write name="pagingBar" filter="false" scope="request" />
             </td>
           </tr>
         </logic:notEmpty>
       </logic:present>
     </table>
-    </form>
   </body>
 </html>

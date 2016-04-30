@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  </logic:iterate>
 				  <logic:present name="pagingBar" scope="request">
 			      </logic:present>
-				  <tr><td>
+				  <tr><td colspan="11">
 				  	<table border="0" width="100%">
 				  		<tr>
 				  			<td>
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  			</td>
 				  			<td><input type="hidden" name="pcmd" value=<%=pcmd %> /></td>
 			</form>
-				  			<td colspan="5" align="right">
+				  			<td align="right">
 				  				<bean:write name="pagingBar" filter="false" scope="request" />
 				      			<!-- 
 				      			<form name='indentForm' action='indent.do?command=paging' method='post'>

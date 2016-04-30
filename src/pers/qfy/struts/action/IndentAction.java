@@ -151,7 +151,7 @@ public class IndentAction extends BaseAction{
     public ActionForward View_sell(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
     	//将查找的内容保存到resultdata中，jsp页面在运行时就会去读取了
     	
-    	String action = "indent.do?command=paging";
+    	String action = "indent.do?command=view&pcmd=sell";
     	
     	//参数二就是Form的名字
     	Map map = getPage(dao, "indentForm", action, Integer.parseInt(currPage), "select * from tb_indent where isoutsell='1'", dao.CLASSNAME);

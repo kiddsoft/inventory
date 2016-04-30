@@ -34,11 +34,6 @@ public class BaseAction extends Action{
 	/*所用到的dao对象， strut-config.xml中的表单名字，行为xxx.do?command=xxx , 当前选中的页数， 查询的SQL语句，结果集所对应的类名*/
 	public Map getPage(BaseHibernateDAO dao,String formName, String action, int iCurrPage, String sql, Class resultClass)
 	{
-		//获取需要查询的总行数
-		int queryCount = recPerPage* iCurrPage;
-
-		//查询数据 queryCount 条数据，存起来，然后返回
-
 		// 实例化一个Map对象
 		Map map = new HashMap();
 		
@@ -64,18 +59,11 @@ public class BaseAction extends Action{
 				iCurrPage = 1;
 			}
 			// 分页查询获取结果集 取相对应的页数的内容
-			for(int i=0;i<listAll.size(); i++)
-			{
-				//只取全部结果中的某一页
-				if(i >= (iCurrPage-1)*queryCount)
-				{
-					Serializable ser = (Serializable)listAll.get(i);
-					list.add(ser);
-				}
-				if(i == (iCurrPage*queryCount-1))
-				{
-					break;
-				}
+			int start = recPerPage * (iCurrPage - 1);
+			int end = recPerPage* iCurrPage;
+			end = end > count ? count : end;
+			for (int i = start; i < end; i++) {
+				list.add((Serializable)listAll.get(i));
 			}
 
 			// 构造分页条

@@ -40,6 +40,8 @@ public class TrueCommodityDAO extends BaseHibernateDAO {
 	public static final String TABLENAME = "tb_commodity";
 	public static final Class CLASSNAME = TbCommodity.class;
 	
+	private String hql;
+	
 	//查询商品
 	public List Query(String fieldValue, String strValue){
 		List<TbCommodity> obj = null;
@@ -52,6 +54,31 @@ public class TrueCommodityDAO extends BaseHibernateDAO {
 		
 		return obj;
 	}
+	
+//	public Long GetCount() {
+//		try {
+//			String queryString = "select count(*) from TbCommodity";
+//			Query queryObject = getSession().createQuery(queryString);
+//			Long count = (Long)queryObject.uniqueResult();
+//			return count;
+//		} catch (RuntimeException re) {
+//			log.error("get count failed", re);
+//			throw re;
+//		}
+//	}
+//	
+//	public List QueryRange(int min, int count) {
+//		try {
+//			String queryString = "from TbCommodity";
+//			Query queryObject = getSession().createQuery(queryString);
+//			queryObject.setFirstResult(min);
+//			queryObject.setMaxResults(count);
+//			return queryObject.list();
+//		} catch (RuntimeException re) {
+//			log.error("find range failed", re);
+//			throw re;
+//		}
+//	}
 	
 	
 	//添加商品
