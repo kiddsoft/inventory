@@ -14,6 +14,7 @@ else
 {
 	state = "采购";
 }
+session.setAttribute("pcmd", pcmd);
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
@@ -49,10 +50,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	<td class="td_right"><bean:message key="indent.endtime" /></td>
 	  </tr>
 	  <!-- 从request中读取indentdata 然后使用迭代器ele来遍历indentdata -->
-	  <logic:present name="indentdata" scope="request">
+	  <logic:present name="list" scope="request">
 	  	<form action="indent.do?command=delete" method='post'>
-	  	<logic:notEmpty name="indentdata" scope="request">
-  			<logic:iterate id="ele" name="indentdata" scope="request">
+	  	<logic:notEmpty name="list" scope="request">
+  			<logic:iterate id="ele" name="list" scope="request">
 				  <tr>
 				  	<td>
 	        			<input type="hidden" name="allcno" value='<bean:write name="ele" property="ino" />'>
@@ -71,7 +72,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  		<td><bean:write name="ele" property="itime" /></td>
 			  		<td><bean:write name="ele" property="endtime" /></td>
 				  </tr>
-						</logic:iterate>
+				  </logic:iterate>
+				  <logic:present name="pagingBar" scope="request">
+			      </logic:present>
 				  <tr><td>
 				  	<table border="0" width="100%">
 				  		<tr>
@@ -81,9 +84,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  			</td>
 				  			<td><input type="hidden" name="pcmd" value=<%=pcmd %> /></td>
 			</form>
-				  			<td>
-				  				<!-- 存放页数标识 -->
-				  			</td>
+				  			<td colspan="5" align="right">
+				  				<bean:write name="pagingBar" filter="false" scope="request" />
+				      			<!-- 
+				      			<form name='indentForm' action='indent.do?command=paging' method='post'>
+				      				<input type='submit' value='GO'>
+				      			</form>
+				      			-->
+				    		</td>
 				  		</tr>
 				  	</table>
 				  </td></tr>

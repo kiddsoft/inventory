@@ -12,11 +12,13 @@ public class EncodingFilter implements Filter{
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException
     {
-    	//设置
+    	//设置请求与响应的参数的语言类型 为 utf-8格式，因为这种格式支持中文，解决乱码问题
     	request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
 
+        //继续传递请求响应
         chain.doFilter(request, response);      
     }
+    //结束函数，实现之，内容为空就行了
 	public void destroy() {}
 }

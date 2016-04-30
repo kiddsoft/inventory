@@ -74,6 +74,11 @@ public class BaseHibernateDAO implements IBaseHibernateDAO {
 		result = QueryBase(sql, resultClass);
 		return result;
 	}
+	public List QueryForSql(String sql, Class resultClass){
+		List<Serializable> result = null;
+		result = QueryBase(sql, resultClass);
+		return result;
+	}
 	
 	
 	/**
@@ -112,7 +117,7 @@ public class BaseHibernateDAO implements IBaseHibernateDAO {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * 执行SQL语句 并返回执行结果
 	 * @param sql	需要执行的SQL语句

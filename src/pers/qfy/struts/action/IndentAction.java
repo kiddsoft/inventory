@@ -2,6 +2,7 @@ package pers.qfy.struts.action;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import pers.qfy.dao.TbUser;
 import pers.qfy.daotrue.TrueCommodityDAO;
 import pers.qfy.daotrue.TrueIndentDAO;
 import pers.qfy.daotrue.TrueUserDao;
+import pers.qfy.factory.BaseHibernateDAO;
 import pers.qfy.struts.form.CommodityForm;
 import pers.qfy.struts.form.IndentForm;
 import pers.qfy.util.FUtil;
@@ -29,6 +31,7 @@ import pers.qfy.util.FUtil;
 public class IndentAction extends BaseAction{
 	IndentForm cf=null;
 	TrueIndentDAO dao = null;
+	String currPage;
 
 	//采购与销售的都会入进这里
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -36,10 +39,22 @@ public class IndentAction extends BaseAction{
 	{
 		dao = new TrueIndentDAO();
 		cf = (IndentForm)form;
+		currPage = request.getParameter("currPage");
+		if(currPage==null || currPage=="")
+		{
+			currPage = "1";
+		}
+		this.locale = this.getLocale(request);
+		this.message = this.getResources(request);
 		
 		//command参数用于控制功能   pcmd用于表明动作是属于销售还是采购的
 		String cmd  = request.getParameter("command");
 		String pcmd = request.getParameter("pcmd");
+		if(pcmd==null)
+		{
+			HttpSession session = request.getSession(false);
+			pcmd = (String)session.getAttribute("pcmd");
+		}
 
 		FUtil.print("IndentAction当前命令:cmd=" + cmd + "   pcmd=" + pcmd);
 		
@@ -63,6 +78,11 @@ public class IndentAction extends BaseAction{
 			else if(cmd.equals("delete"))
 			{
 				af = Del( mapping, form, request, response, 1);
+			}
+			else if(cmd.equals("paging"))
+			{
+				String sss = request.getParameter("currPage");
+				FUtil.print("当前选择页" + sss);
 			}
 		}
 		else
@@ -130,9 +150,22 @@ public class IndentAction extends BaseAction{
 	//查询全部
     public ActionForward View_sell(ActionMapping mapping,ActionForm form,HttpServletRequest request, HttpServletResponse response){
     	//将查找的内容保存到resultdata中，jsp页面在运行时就会去读取了
-    	request.setAttribute("indentdata", null);
-    	List<TbIndent> li = dao.QueryForKeyOne(dao.TABLENAME, dao.ISOUTSELL, "1", dao.CLASSNAME);
-    	request.setAttribute("indentdata", li);
+    	
+    	String action = "indent.do?command=paging";
+    	
+    	//参数二就是Form的名字
+    	Map map = getPage(dao, "indentForm", action, Integer.parseInt(currPage), "select * from tb_indent where isoutsell='1'", dao.CLASSNAME);
+    	
+    	request.setAttribute("list", map.get("list"));
+		//将结果集放到分页条中
+		request.setAttribute("pagingBar", map.get("bar"));
+		
+		String str = (String)map.get("bar");
+		System.out.println(str);
+		
+    	//request.setAttribute("indentdata", null);
+    	//List<TbIndent> li = dao.QueryForKeyOne(dao.TABLENAME, dao.ISOUTSELL, "1", dao.CLASSNAME);
+    	//request.setAttribute("indentdata", li);
     	return mapping.findForward("forward_sell_viewUI");
     }
     
