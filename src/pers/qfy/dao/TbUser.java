@@ -14,10 +14,14 @@ public class TbUser implements java.io.Serializable {
 	private String password;
 	private String name;
 	private Integer level;
+	private String leveltype;
 	private String superior;
 	private Integer isstock;
+	private String isstocktype;
 	private Integer issell;
+	private String isselltype;
 	private Integer ismgr;
+	private String ismgrtype;
 	private Timestamp createtime;
 
 	// Constructors
@@ -77,6 +81,12 @@ public class TbUser implements java.io.Serializable {
 	}
 
 	public void setLevel(Integer level) {
+		if(level == 0){
+			leveltype = "管理员";
+		}
+		else{
+			leveltype = "普通用户";
+		}
 		this.level = level;
 	}
 
@@ -93,6 +103,12 @@ public class TbUser implements java.io.Serializable {
 	}
 
 	public void setIsstock(Integer isstock) {
+		if(isstock == 1){
+			isstocktype = "有";
+		}
+		else{
+			isstocktype = "无";
+		}
 		this.isstock = isstock;
 	}
 
@@ -101,6 +117,12 @@ public class TbUser implements java.io.Serializable {
 	}
 
 	public void setIssell(Integer issell) {
+		if(issell == 1){
+			isselltype = "有";
+		}
+		else{
+			isselltype = "无";
+		}
 		this.issell = issell;
 	}
 
@@ -109,6 +131,12 @@ public class TbUser implements java.io.Serializable {
 	}
 
 	public void setIsmgr(Integer ismgr) {
+		if(ismgr == 1){
+			ismgrtype = "有";
+		}
+		else{
+			ismgrtype = "无";
+		}
 		this.ismgr = ismgr;
 	}
 
@@ -118,6 +146,38 @@ public class TbUser implements java.io.Serializable {
 
 	public void setCreatetime(Timestamp createtime) {
 		this.createtime = createtime;
+	}
+
+	public String getLeveltype() {
+		return leveltype;
+	}
+
+	public void setLeveltype(String leveltype) {
+		this.leveltype = leveltype;
+	}
+
+	public String getIsselltype() {
+		return isselltype;
+	}
+
+	public void setIsselltype(String isselltype) {
+		this.isselltype = isselltype;
+	}
+
+	public String getIsstocktype() {
+		return isstocktype;
+	}
+
+	public void setIsstocktype(String isstocktype) {
+		this.isstocktype = isstocktype;
+	}
+
+	public String getIsmgrtype() {
+		return ismgrtype;
+	}
+
+	public void setIsmgrtype(String ismgrtype) {
+		this.ismgrtype = ismgrtype;
 	}
 
 }

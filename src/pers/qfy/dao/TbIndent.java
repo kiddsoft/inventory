@@ -16,8 +16,12 @@ public class TbIndent implements java.io.Serializable {
 	private String superior;
 	private Integer icount;
 	private Integer price;
+	private String clientname;
+	private String clientphone;
 	private Integer isoutsell;
+	private String isoutselltype;
 	private Integer istate;
+	private String istatetype;
 	private Timestamp itime;
 	private Timestamp endtime;
 
@@ -34,7 +38,8 @@ public class TbIndent implements java.io.Serializable {
 
 	/** full constructor */
 	public TbIndent(String ino, String cno, String username, String superior,
-			Integer icount, Integer price, Integer isoutsell, Integer istate,
+			Integer icount, Integer price, String clientname,
+			String clientphone, Integer isoutsell, Integer istate,
 			Timestamp itime, Timestamp endtime) {
 		this.ino = ino;
 		this.cno = cno;
@@ -42,6 +47,8 @@ public class TbIndent implements java.io.Serializable {
 		this.superior = superior;
 		this.icount = icount;
 		this.price = price;
+		this.clientname = clientname;
+		this.clientphone = clientphone;
 		this.isoutsell = isoutsell;
 		this.istate = istate;
 		this.itime = itime;
@@ -98,11 +105,33 @@ public class TbIndent implements java.io.Serializable {
 		this.price = price;
 	}
 
+	public String getClientname() {
+		return this.clientname;
+	}
+
+	public void setClientname(String clientname) {
+		this.clientname = clientname;
+	}
+
+	public String getClientphone() {
+		return this.clientphone;
+	}
+
+	public void setClientphone(String clientphone) {
+		this.clientphone = clientphone;
+	}
+
 	public Integer getIsoutsell() {
 		return this.isoutsell;
 	}
 
 	public void setIsoutsell(Integer isoutsell) {
+		if(isoutsell == 1){
+			isoutselltype = "销售";
+		}
+		else{
+			isoutselltype = "采购";
+		}
 		this.isoutsell = isoutsell;
 	}
 
@@ -111,6 +140,15 @@ public class TbIndent implements java.io.Serializable {
 	}
 
 	public void setIstate(Integer istate) {
+		if(istate == 0){
+			istatetype = "审核中";
+		}
+		else if(istate == 1) {
+			istatetype = "同意";
+		}
+		else{
+			istatetype = "拒绝";
+		}
 		this.istate = istate;
 	}
 
@@ -128,6 +166,22 @@ public class TbIndent implements java.io.Serializable {
 
 	public void setEndtime(Timestamp endtime) {
 		this.endtime = endtime;
+	}
+
+	public String getIsoutselltype() {
+		return isoutselltype;
+	}
+
+	public void setIsoutselltype(String isoutselltype) {
+		this.isoutselltype = isoutselltype;
+	}
+
+	public String getIstatetype() {
+		return istatetype;
+	}
+
+	public void setIstatetype(String istatetype) {
+		this.istatetype = istatetype;
 	}
 
 }

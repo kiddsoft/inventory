@@ -1,5 +1,6 @@
 package pers.qfy.factory;
-
+//操作数据库的基类
+//其它的dao类，都是继承本类
 import java.io.Serializable;
 import java.util.List;
 
@@ -124,7 +125,7 @@ public class BaseHibernateDAO implements IBaseHibernateDAO {
 	 */
 	public int ExecSql(String sql){
 		//sql = "UPDATE tb_user SET `level`=77 where username='6269'";
-		FUtil.print("要执行 : "+ sql);
+		FUtil.print("ExecSql执行 : "+ sql);
 		int result = 0;
 		try{
 			session = getSession();						//获取Session对象

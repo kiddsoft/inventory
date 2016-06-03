@@ -48,35 +48,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
   <body>
-  <table align="center">
-  	<tr><td>
-  		<!--  -->
-  		<html:form action="system.do?command=changePassword" onsubmit="return check();" focus="oldpassword">
-  			<table>
-  				<tr>
-					<td><bean:message key="user.oldpassword"/>：</td>
-					<td><html:text property="oldpassword" value=""/></td>
-				</tr>
-				<tr>
-					<td><bean:message key="user.newpassword"/>：</td>
-					<td><html:text property="password" value=""/></td>
-				</tr>
-				<tr>
-					<td><bean:message key="user.repassword"/>：</td>
-					<td><html:text property="repassword" value=""/></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>
-						<html:submit styleClass="buttonStyle">
-							<bean:message key="button.submit"/>
-						</html:submit>
-					</td>
-				</tr>
-  			</table>
-    	</html:form>
-  	</td></tr>
-  </table>
-
+  	<div class="div1">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td class="td_title1">
+					·<bean:message key="current.pos"/>：
+					<bean:message key="system.manager"/>
+					&gt;&gt; <bean:message key="user.password.change" />
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#FFFFFF" height="50">
+					<br>
+					<table border="1" align="center" width="700" cellpadding="0" cellspacing="0" bordercolor="#036500" >
+						<tr bgcolor="#FFFFFF">
+							<td colspan="9" align="center">
+							  <!-- 提交到commodity.do ，并且带上参数 command,值为 add -->
+							  <html:form action="system.do?command=changePassword" onsubmit="return check();" focus="oldpassword">
+							  <table>
+							  	<tr>
+									<td><bean:message key="user.oldpassword"/>：</td>
+									<td><html:text property="oldpassword" value=""/></td>
+								</tr>
+								<tr>
+									<td><bean:message key="user.newpassword"/>：</td>
+									<td><html:text property="password" value=""/></td>
+								</tr>
+								<tr>
+									<td><bean:message key="user.repassword"/>：</td>
+									<td><html:text property="repassword" value=""/></td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+									<td>
+										<html:submit styleClass="buttonStyle">
+											<bean:message key="button.submit"/>
+										</html:submit>
+									</td>
+								</tr>
+							  </table>
+							  </html:form>
+							</td>
+						</tr>
+					</table>
+					<br>
+				</td>
+			</tr>
+		</table>
+	</div>
   </body>
 </html>

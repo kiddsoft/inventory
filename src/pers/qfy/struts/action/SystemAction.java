@@ -1,6 +1,8 @@
 package pers.qfy.struts.action;
 import pers.qfy.dao.*;
 import pers.qfy.daotrue.TrueUserDao;
+import pers.qfy.struts.form.CommodityForm;
+import pers.qfy.struts.form.UserForm;
 import pers.qfy.util.*;
 
 import java.util.*;
@@ -14,18 +16,22 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-
+//这里是系统管理的action
+//供系统管理等jsp页面来调用
 
 public class SystemAction extends BaseAction{
 	private TrueUserDao userdao;
 	private HttpSession session;
 	private TbUser user;
 	private String currPage;
-	
+	final String FORMNAME = "userForm";
+	String action_paging = "system.do?command=view";//显示信息页面的分页的组装action语句
+	String action_findview = "system.do?command=findview";//查询的组装action语句
+	String action_clearshow = "system.do?command=clearShow";//清空过期商品页面的分页的组装action语句
+
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
-    	System.out.println("进入SystemAction");
     	String cmd=request.getParameter("command");
-    	System.out.println(cmd);
+    	System.out.println("SystemAction当前命令 " + cmd);
     	
     	userdao = new TrueUserDao();
     	session = request.getSession();
@@ -36,8 +42,17 @@ public class SystemAction extends BaseAction{
 		{
 			currPage = "1";
 		}
+		//设置条件查询的界面文字
 		this.locale = this.getLocale(request);
 		this.message = this.getResources(request);
+		titles = new String[2];
+    	titles[0] = message.getMessage(locale, "system.login.id");
+    	titles[1] = message.getMessage(locale, "system.login.name");
+    	names = new String[2];
+    	names[0] = "username";
+    	names[1] = "name";
+    	
+    	
     	
     	if (cmd.equalsIgnoreCase("addUser")) {
     		return addUser(mapping, form, request, response);
@@ -46,13 +61,18 @@ public class SystemAction extends BaseAction{
     	} else if (cmd.equalsIgnoreCase("deleteUser")) {
     		return deleteUser(mapping, form, request, response);
     	} else if (cmd.equalsIgnoreCase("showUser")) {
-    		return showUser(mapping, form, request, response);
+    		return showUser("", mapping, form, request, response);
     	} else if (cmd.equalsIgnoreCase("modifyUser")) {
     		return modifyUser(mapping, form, request, response);
     	} else if (cmd.equalsIgnoreCase("myInfo")) {
     		return myInfo(mapping, form, request, response);
     	} else if (cmd.equalsIgnoreCase("changePassword")) {
     		return changePassword(mapping, form, request, response);
+    	} else if (cmd.equalsIgnoreCase("exit")) {
+    		request.getSession().removeAttribute("user");
+    		return mapping.findForward("login");
+    	} else if (cmd.equalsIgnoreCase("findview")) {
+    		return FindView(mapping, form, request, response);
     	} else {
     		return myInfo(mapping, form, request, response);
     	}
@@ -83,7 +103,7 @@ public class SystemAction extends BaseAction{
 	    		request.setAttribute("operater", "添加用户");
 	    		request.setAttribute("result", "成功");
 //	    		return mapping.findForward("success");
-	    		return showUser(mapping, form, request, response);
+	    		return showUser("", mapping, form, request, response);
 	    	} else {
 	    		request.setAttribute("operater", "添加用户");
 	    		request.setAttribute("result", "失败");
@@ -142,7 +162,7 @@ public class SystemAction extends BaseAction{
 	    		request.setAttribute("operater", "修改用户");
 	    		request.setAttribute("result", "成功");
 //	    		return mapping.findForward("success");
-	    		return showUser(mapping, form, request, response);
+	    		return showUser("", mapping, form, request, response);
 	    	} else {
 	    		request.setAttribute("operater", "修改用户");
 	    		request.setAttribute("result", "失败");
@@ -160,7 +180,7 @@ public class SystemAction extends BaseAction{
     		request.setAttribute("operater", "删除用户");
     		request.setAttribute("result", "成功");
     		
-    		return showUser(mapping, form, request, response);
+    		return showUser("", mapping, form, request, response);
     	} else {
     		request.setAttribute("operater", "删除用户");
     		request.setAttribute("result", "失败");
@@ -168,13 +188,42 @@ public class SystemAction extends BaseAction{
     	}
 	}
 	
-	public ActionForward showUser(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response){
+	public ActionForward FindView(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response){
+		UserForm uf = (UserForm)form;
+		//String username = request.getParameter("username");
+		//String name = request.getParameter("name");
+		String username = uf.getUsername();
+		String name = uf.getName();
+		
+		String sql = "select * from tb_user";
+
+    	if(username.length()>0 && name.length()>0)
+    	{
+    		sql += " where username='" + username + "' and name='" + name + "'";
+    	}
+    	else if(username.length()>0){
+    		sql += " where username='" + username + "'";
+    	}
+    	else if(name.length()>0){
+    		sql += " where name='" + name + "'";
+    	}
+    	FUtil.print(sql);
+		return showUser(sql, mapping, form, request, response);
+	}
+	
+	public ActionForward showUser(String sql, ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response){
+		if(sql.equals("")){
+			sql = "select * from tb_user";
+		}
 //		List<TbUser> userList = userdao.getAllUser();
 //		request.setAttribute("userList", userList);
 		String action = "system.do?command=showUser";
-    	Map map = getPage(userdao, "showUserForm", action, Integer.parseInt(currPage), "select * from tb_user", userdao.CLASSNAME);
+    	Map map = getPage(userdao, FORMNAME, action, Integer.parseInt(currPage), sql, userdao.CLASSNAME);
     	request.setAttribute("list", map.get("list"));
 		request.setAttribute("pagingBar", map.get("bar"));
+		
+		getQuery(request, FORMNAME, action_findview);
+		
 		return mapping.findForward("showUser");
 	}
 	
@@ -198,7 +247,7 @@ public class SystemAction extends BaseAction{
 	    		return mapping.findForward("error");
 	    	}
 		}
-		
+
 		return mapping.findForward("changePassword");
 	}
 	

@@ -16,10 +16,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
   </head>
   <body>
+    <table><bean:message key="bbs.manager"/>><bean:message key="bbs.show.all"/>><bean:message key="bbs.show.detail"/></table>
       <logic:present name="bbs" scope="request">
         <logic:notEmpty name="bbs" scope="request">
+      
             <h1 align="center"><bean:write name="bbs" property="title" /></h1>
             <hr>
             <bean:write name="bbs" property="createtime" /> <bean:write name="bbs" property="author" />

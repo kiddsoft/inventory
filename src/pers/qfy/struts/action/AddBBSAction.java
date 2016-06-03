@@ -4,6 +4,8 @@
  */
 package pers.qfy.struts.action;
 
+//这是一个添加公告的action
+//只负责添加公告
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

@@ -3,7 +3,7 @@ tb_user
 username	char	用户ID
 password	char	密码
 name		char	姓名
-level		int	等级，是否需要再建一个子表显示这个。0表示等级最高，1为普通管理员，2为普通用户
+level		int	等级，是否需要再建一个子表显示这个。0表示管理员  1表示普通用户
 superior	char	上级的用户ID
 isstock		int	是否允许进货
 issell		int	是否允许出货
@@ -34,10 +34,32 @@ superior	char	审核人的用户ID
 icount		int	数量
 price		int	销售价格
 isoutsell	int	是否出货订单。0表示进货，1表示为出货
-istate		int	审核状态。0表示待审核，1表示成功，2表示审核失败  -- 其中1与2表示审核结束了
+istate		int	审核状态。0表示待审核，1表示允许该订单，2表示审核拒绝该订单  -- 其中1与2表示审核结束了
 itime		time	订单时间
 endtime		time	审核时间
 
 
 
-随便改
+
+交易记录表-有交易的记录
+ino			订单ID
+cno			商品ID
+cname		商品名称
+username	订单人员
+superior	审核员
+scount		数量
+inprice		入价
+outprice	售价
+gain		净赚
+itime		交易时间
+
+
+
+
+
+公告表
+tb_bbs	
+title		char		标题
+content		longtext	内容
+author		char		作者
+createtime	time		时间

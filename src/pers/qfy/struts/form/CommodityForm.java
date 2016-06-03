@@ -11,6 +11,7 @@ public class CommodityForm extends ActionForm {
 	private Integer count;
 	private String description;
 	private String oldcno;
+	private String delcount;
 	
 	public String getCno() {
 		return cno;
@@ -56,5 +57,11 @@ public class CommodityForm extends ActionForm {
 	}
 	public void setOldcno(String oldcno) {
 		this.oldcno = oldcno;
+	}
+	public String getDelcount() {
+		return delcount;
+	}
+	public void setDelcount(String delcount) {
+		this.delcount = delcount;
 	}
 }

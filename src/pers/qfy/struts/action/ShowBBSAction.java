@@ -3,7 +3,8 @@
  * Template path: templates/java/JavaClass.vtl
  */
 package pers.qfy.struts.action;
-
+//显示公告栏的action
+//
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import pers.qfy.dao.TbUser;
 import pers.qfy.daotrue.TrueBBSDao;
 import pers.qfy.daotrue.TrueUserDao;
 import pers.qfy.struts.form.AddBBSForm;
+import pers.qfy.util.FUtil;
 
 /** 
  * MyEclipse Struts
@@ -35,7 +37,8 @@ public class ShowBBSAction extends BaseAction {
 	/*
 	 * Generated Methods
 	 */
-
+	final String FORMNAME = "showBBSForm";
+	
 	private TrueBBSDao dao;
 	private HttpSession session;
 	private TbBbs bbs;
@@ -54,36 +57,98 @@ public class ShowBBSAction extends BaseAction {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		dao = new TrueBBSDao();
+		
+		String cmd=request.getParameter("command");
+		id = request.getParameter("id");
+		FUtil.print("ShowBBSAction当前命令cmd=" + cmd + " id=" + id);
+
     	session = request.getSession();
-    	user = (TbUser)session.getAttribute("user");
+    	
     	
     	currPage = request.getParameter("currPage");
 		if(currPage==null || currPage=="")
 		{
 			currPage = "1";
 		}
-		
-		id = request.getParameter("id");
+		//选择的
 		
 		this.locale = this.getLocale(request);
 		this.message = this.getResources(request);
 		
-		if (id == null) {
-	    	String action = "showBBS.do?command=show";
-	    	Map map = getPage(dao, "showBBSForm", action, Integer.parseInt(currPage), "select * from tb_bbs", dao.CLASSNAME);
-	    	request.setAttribute("list", map.get("list"));
-			request.setAttribute("pagingBar", map.get("bar"));
-			
-			return mapping.findForward("success");
-		} else {
-			if (id == "") {
-				id = "1";
-			}
+		titles = new String[2];
+    	titles[0] = "标题";
+    	titles[1] = "作者";
 
-			TbBbsDAO bbsDao = new TbBbsDAO();
-			TbBbs bbs = bbsDao.findById(Integer.parseInt(id));
-			request.setAttribute("bbs", bbs);
-			return mapping.findForward("detail");
+    	names = new String[2];
+    	names[0] = "title";
+    	names[1] = "author";
+
+		if(cmd != null && cmd.equals("query")){
+			//条件查询的
+			currPage = "1";
+			String title = request.getParameter("title");
+			String author = request.getParameter("author");
+			//将值传到session中，以便可以翻页时仍然有条件查询效果
+			session.setAttribute("title", title);
+			session.setAttribute("author", author);
 		}
+    	if(id == null || id.equals("")){
+    		if(cmd == "viewall"){
+    			//显示全部
+    			//将条件设为空值
+    			session.setAttribute("title", "");
+    			session.setAttribute("author", "");
+    		}
+    		return View( mapping, request);
+    	}
+    	else{
+    		//显示一条公告细节
+    		return ShowDetail(mapping, request);
+    	}
+	}
+	//显示公告列表
+	public ActionForward View( ActionMapping mapping,HttpServletRequest request){
+		String sql = "select * from tb_bbs";
+		
+		String title = (String)session.getAttribute("title");
+		String author = (String)session.getAttribute("author");
+		//如果这两个值存在且不为空值，则进行条件匹配
+		if(title!=null && !title.equals("") && author!=null && !author.equals("")){
+			//两个条件都有
+			sql += " where title like '%" + title + "%' and author like '%" + author + "%'";
+		}
+		else if(title!=null && !title.equals("")){
+			//只有标题
+			sql += " where title like '%" + title + "%'";
+		}
+		else if(author!=null && !author.equals("")){
+			//只有作者
+			sql += " where author like '%" + author + "%'";
+		}
+		FUtil.print("当前的SQL " + sql);
+		
+		
+		//用于显示分页栏
+		String action = "showBBS.do?command=view";
+    	Map map = getPage(dao, FORMNAME, action, Integer.parseInt(currPage), sql, dao.CLASSNAME);
+    	request.setAttribute("list", map.get("list"));
+		request.setAttribute("pagingBar", map.get("bar"));
+		
+		//用于显示条件查询栏
+		getQuery(request, FORMNAME, "showBBS.do?command=query");
+		
+		return mapping.findForward("success");
+	}
+	//显示一条公告细节
+	public ActionForward ShowDetail(ActionMapping mapping,HttpServletRequest request){
+		
+		if (id == "") {
+			id = "1";
+		}
+		//根据ID查询公告内容，然后存到request，然后调用去struts-config.xml中寻找 detail
+		TbBbsDAO bbsDao = new TbBbsDAO();
+		TbBbs bbs = bbsDao.findById(Integer.parseInt(id));
+		request.setAttribute("bbs", bbs);
+		return mapping.findForward("detail");
 	}
 }

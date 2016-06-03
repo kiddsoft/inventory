@@ -1,5 +1,7 @@
 package pers.qfy.daotrue;
 
+//用于操作tb_commodity表格的类
+//商品信息表格的数据库操作
 
 import java.util.List;
 import org.hibernate.LockMode;

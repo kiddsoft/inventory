@@ -16,74 +16,118 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<style type="text/css">
+	<!-- 
 		table {border: 0px solid black}
-    tr {border: 1px solid black;}
-    tr:nth-child(even) {background-color: #eee}
+    	tr {border: 1px solid black;}
+    	tr:nth-child(even) {background-color: #eee}
 		td {border: 0px solid black; padding: 5px}
+		-->
 	</style>
   </head>
   <body>
-    <table>
-    	<tr><td colspan="10" align="right"><a href="system.do?command=addUser">添加用户</a></td></tr>
-    	<tr>
-    		<td><input type="checkbox">全选</td>
-    		<td>登陆账号</td>
-    		<td>姓名</td>
-    		<td>用户级别</td>
-    		<td>上级领导</td>
-    		<td>进货权限</td>
-    		<td>销售权限</td>
-    		<td>管理订单</td>
-    		<td>删除</td>
-    		<td>修改</td>
-    	</tr>
-      <logic:present name="list" scope="request">
-        <logic:empty name="list" scope="request">
-        <tr><td colspan="10">目前没有用户</td></tr>
-        </logic:empty>
-        <logic:notEmpty name="list" scope="request">
-          <form action="system.do?command=deleteUser" method="post">
-          <logic:iterate id="user" name="list" scope="request">
-            <tr>
-              <td>
-                <input type="hidden" name="all" value='<bean:write name="user" property="username"/>'>
-                <input type="checkbox" name="selectedUserer" value='<bean:write name="user" property="username" />'>
-              </td>
-              <td><bean:write name="user" property="username" /></td>
-              <td><bean:write name="user" property="name" /></td>
-              <td><bean:write name="user" property="level" /></td>
-              <td><bean:write name="user" property="superior" /></td>
-              <td><bean:write name="user" property="isstock" /></td>
-              <td><bean:write name="user" property="issell" /></td>
-              <td><bean:write name="user" property="ismgr" /></td>
-              <td>
-                <html:link href="system.do?command=deleteUser" paramId="username" paramName="user" paramProperty="username">
-                 	 删除 
-                </html:link>
-              </td>
-              <td>
-                <html:link href="system.do?command=modifyUser" paramId="username" paramName="user" paramProperty="username">
-                	 修改	
-                </html:link>
-              </td>
-            </tr>
-          </logic:iterate>
-          <tr>
-            <td>
-              <html:submit property="command"><bean:message key="button.delete.selected"/></html:submit>
-              <html:submit property="command"><bean:message key="button.delete.all"/></html:submit>
-            </td>
-            </form>
-            <td colspan="9" align="right">
-              <bean:write name="pagingBar" filter="false" scope="request" />
-            </td>
-          </tr>
-        </logic:notEmpty>
-      </logic:present>
-    </table>
+  	<div class="div1">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td class="td_title1">
+					·<bean:message key="current.pos"/>：
+					<bean:message key="system.manager"/>
+					&gt;&gt; <bean:message key="user.manager" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="system.do?command=addUser"><bean:message key="user.add"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#FFFFFF" height="50">
+					<br>
+					<table border="1" align="center" width="700" cellpadding="0" cellspacing="0" bordercolor="#036500" >
+						<tr bgcolor="#FFFFFF">
+							<td colspan="9" align="center">
+								<table border="0" width="100%">
+									<tr>
+										<td align="left">
+										<bean:write name="find" filter="false" scope="request" />
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr bgcolor="#FFFFFF" >
+							<td><bean:message key="user.number"/></td>
+				    		<td><bean:message key="user.password"/></td>
+				    		<td><bean:message key="user.username"/></td>
+				    		<td><bean:message key="user.level"/></td>
+				    		<td><bean:message key="user.superior"/></td>
+				    		<td><bean:message key="user.isstock"/></td>
+				    		<td><bean:message key="user.issell"/></td>
+				    		<td><bean:message key="indent.manager"/></td>
+				    		<td><bean:message key="button.delete"/></td>
+				    		<td><bean:message key="button.change"/></td>
+						</tr>
+						<logic:present name="list" scope="request">
+						<logic:notEmpty name="list" scope="request">
+						<form action="system.do?command=deleteUser" method="post">
+						<logic:iterate id="user" name="list" scope="request">
+						<tr>
+							<td><bean:write name="user" property="username" /></td>
+							<td><bean:write name="user" property="password" /></td>
+							<td><bean:write name="user" property="name" /></td>
+							<td><bean:write name="user" property="leveltype" /></td>
+							<td><bean:write name="user" property="superior" /></td>
+							<td><bean:write name="user" property="isstocktype" /></td>
+							<td><bean:write name="user" property="isselltype" /></td>
+							<td><bean:write name="user" property="ismgrtype" /></td>
+							<td>
+				                <html:link href="system.do?command=deleteUser" paramId="username" paramName="user" paramProperty="username">
+				                 	 <bean:message key="button.delete"/>
+				                </html:link>
+				            </td>
+				            <td>
+				                <html:link href="system.do?command=modifyUser" paramId="username" paramName="user" paramProperty="username">
+				                	 <bean:message key="button.change"/>	
+				                </html:link>
+				            </td>
+						</tr>
+						</logic:iterate>
+						<tr bgcolor="#FFFFFF">
+							<td colspan="9" align="right">
+								<table border="0" width="100%">
+									<tr>
+										<td>
+										</td>
+						</form>
+										<td align="right">
+											<bean:write name="pagingBar" filter="false" scope="request" />
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						</logic:notEmpty>
+						<logic:empty name="list" scope="request">
+						<tr bgcolor="#FFFFFF">
+							<td colspan="8" align="center">
+								<bean:message key="system.message.null"/>
+							</td>
+						</tr>
+						</logic:empty>
+						</logic:present>
+						<logic:notPresent name="list" scope="request">
+						<tr bgcolor="#FFFFFF">
+							<td colspan="9" align="center">
+								<bean:message key="system.message.null"/>
+							</td>
+						</tr>
+						</logic:notPresent>
+					</table>
+					<br>
+				</td>
+			</tr>
+		</table>
+	</div>
   </body>
 </html>

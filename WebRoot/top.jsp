@@ -18,6 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <body style="background-color: lightskyblue">
     <h1 align="center">进销存管理系统</h1>
-    <p align="right"><a href="logout.do">退出</a></p>
+    
   </body>
 </html>

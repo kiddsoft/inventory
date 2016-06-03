@@ -1,13 +1,19 @@
 package pers.qfy.struts.action;
+//这个是action的基类，其它的action类都是继承这个类的
+//将 分页的功能写在这里，这样子其它的action就可以使用了
+//将 条件查询的功能写在这里，这样子其它的acion就可以使用了
 
 import java.io.Serializable;
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.util.*;
 
 import org.apache.struts.action.Action;
 
 import pers.qfy.factory.BaseHibernateDAO;
+import pers.qfy.util.FUtil;
 
 //用于实现分页功能
 public class BaseAction extends Action{
@@ -15,6 +21,8 @@ public class BaseAction extends Action{
 	final int recPerPage = 3; //一页中的最大行数
 	protected Locale locale = null; // 本地语言信息
 	protected MessageResources message = null;// 消息资源
+	String [] titles = null;
+	String [] names = null;
 	
 	//用多态来实现 传dao指针
 	/*
@@ -115,4 +123,32 @@ public class BaseAction extends Action{
 		map.put("bar", pagingBar.toString());// 分页条的字符串形式
 		return map;
 	}
+	
+	public void SetRegParameter(HttpServletRequest request, Map map)
+	{
+		request.setAttribute("list", map.get("list"));
+		//将结果集放到分页条中
+		request.setAttribute("pagingBar", map.get("bar"));
+	}
+	
+	void getQuery(HttpServletRequest request, String formName, String action){
+    	//titles是显示的文本
+    	//names是参数的名字，用于传递的
+    	StringBuffer pagingBar = new StringBuffer();
+    	
+    	pagingBar.append("<form name='" + formName + "' action='" + action + "' method='post'>");
+
+    	this.locale = this.getLocale(request);
+		this.message = this.getResources(request);
+		
+		if(titles != null && titles.length > 0){
+			for(int i=0;i<titles.length;i++){
+				pagingBar.append(titles[i] + "：<input type='text' name='" + names[i] + "' size='10'>");
+			}
+		}    	
+    	pagingBar.append("<input type='submit' value='"+ message.getMessage(locale, "oper.find") +"'>");
+		pagingBar.append("</form>");
+		
+		request.setAttribute("find", pagingBar);
+    }
 }

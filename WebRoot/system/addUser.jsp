@@ -45,54 +45,74 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
   <body>
-  <table align="center">
-  	<tr><td>
-  		<!--  -->
-  		<html:form action="system.do?command=addUser" onsubmit="return check();" focus="userId">
-  			<table>
-  				<tr>
-		            <td>登陆账号</td>
-		            <td><input type="text" name="userId" /></td>
-		          </tr>
-		          <tr>
-		            <td>登录密码</td>
-		            <td><input type="text" name="userPassword" /></td>
-		          </tr>
-				  		<tr>
-		            <td>姓名</td>
-		            <td><input type="text" name="userName" /></td>
-		          </tr>
-				  		<tr>
-		            <td>用户级别</td>
-		            <td><input type="text" name="userLevel" /></td>
-		          </tr>
-				  		<tr>
-		            <td>上级领导</td>
-		            <td><input type="text" name="userSuperior" /></td>
-		          </tr>
-				  		<tr>
-		            <td>进货权限</td>
-		            <td><input type="text" name="userStock" /></td>
-		          </tr>
-				  		<tr>
-		            <td>销售权限</td>
-		            <td><input type="text" name="userSell" /></td>
-		          </tr>
-		  		<tr>
-		            <td>管理订单</td>
-		            <td><input type="text" name="userManager" /></td>
-		          </tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>
-						<html:submit styleClass="buttonStyle">
-							<bean:message key="button.submit"/>
-						</html:submit>
-					</td>
-				</tr>
-  			</table>
-    	</html:form>
-  	</td></tr>
-  </table>
+  	<div class="div1">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td class="td_title1">
+					·<bean:message key="current.pos"/>：
+					<bean:message key="system.manager"/>
+					&gt;&gt; <bean:message key="user.manager" />
+					&gt;&gt; <bean:message key="user.add" />
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#FFFFFF" height="50">
+					<br>
+					<table border="1" align="center" width="700" cellpadding="0" cellspacing="0" bordercolor="#036500" >
+						<tr bgcolor="#FFFFFF">
+							<td colspan="9" align="center">
+							  <!-- 提交到commodity.do ，并且带上参数 command,值为 add -->
+							  <html:form action="system.do?command=addUser" onsubmit="return check();" focus="userId">
+							  <table>
+							  	<tr>
+						            <td><bean:message key="user.number"/></td>
+						            <td><input type="text" name="userId" /></td>
+						          </tr>
+						          <tr>
+						            <td><bean:message key="user.password"/></td>
+						            <td><input type="text" name="userPassword" /></td>
+						          </tr>
+								  		<tr>
+						            <td><bean:message key="user.username"/></td>
+						            <td><input type="text" name="userName" /></td>
+						          </tr>
+								  		<tr>
+						            <td><bean:message key="user.level"/></td>
+						            <td><input type="text" name="userLevel" /></td>
+						          </tr>
+								  		<tr>
+						            <td><bean:message key="user.superior"/></td>
+						            <td><input type="text" name="userSuperior" /></td>
+						          </tr>
+								  		<tr>
+						            <td><bean:message key="user.isstock"/></td>
+						            <td><input type="text" name="userStock" /></td>
+						          </tr>
+								  		<tr>
+						            <td><bean:message key="user.issell"/></td>
+						            <td><input type="text" name="userSell" /></td>
+						          </tr>
+						  		<tr>
+						            <td><bean:message key="indent.manager"/></td>
+						            <td><input type="text" name="userManager" /></td>
+						          </tr>
+								<tr>
+									<td>&nbsp;</td>
+									<td>
+										<html:submit styleClass="buttonStyle">
+											<bean:message key="button.submit"/>
+										</html:submit>
+									</td>
+								</tr>
+							  </table>
+							  </html:form>
+							</td>
+						</tr>
+					</table>
+					<br>
+				</td>
+			</tr>
+		</table>
+	</div>
   </body>
 </html>

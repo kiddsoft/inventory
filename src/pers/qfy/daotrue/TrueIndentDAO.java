@@ -1,5 +1,6 @@
 package pers.qfy.daotrue;
-
+//用于操作tb_indent表格的类
+//订单(销售与采购)
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -42,9 +43,17 @@ public class TrueIndentDAO extends BaseHibernateDAO {
 	public static final String TABLENAME = "tb_indent";
 	public static final Class CLASSNAME = TbIndent.class;
 	
+	//查询商品信息
 	public Serializable QueryCommodityInfo(String cno){
 		String sql = String.format("select * from tb_commodity where cno='%s';", cno);
 		Serializable ser = QuerySingle(sql, TbCommodity.class);
+		return ser;
+	}
+	
+	//查询 未审核的
+	public List QueryProess(){
+		String sql = String.format("select * from tb_indent where istate='0';");
+		List<Serializable> ser = QueryForSql(sql, CLASSNAME);
 		return ser;
 	}
 	

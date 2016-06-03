@@ -25,6 +25,12 @@
         <property name="price" type="java.lang.Integer">
             <column name="price" />
         </property>
+        <property name="clientname" type="java.lang.String">
+            <column name="clientname" />
+        </property>
+        <property name="clientphone" type="java.lang.String">
+            <column name="clientphone" />
+        </property>
         <property name="isoutsell" type="java.lang.Integer">
             <column name="isoutsell" />
         </property>

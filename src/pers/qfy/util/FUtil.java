@@ -1,5 +1,5 @@
 package pers.qfy.util;
-
+//功能类，保存了一些公共的函数，供JAVA类有需要的调用
 import java.sql.Timestamp;
 import java.text.*;
 import java.util.*;
@@ -36,6 +36,7 @@ public class FUtil {
 		return nNum;
 	}
 	public static String getRandomString(int length) {//length表示生成字符串的长度  
+		length = 10;
 	    String base = "0123456789";     
 	    Random random = new Random();     
 	    StringBuffer sb = new StringBuffer();     

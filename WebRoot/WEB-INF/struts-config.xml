@@ -8,7 +8,9 @@
   	<form-bean name="userForm" type="pers.qfy.struts.form.UserForm" />
   	<form-bean name="commodityForm" type="pers.qfy.struts.form.CommodityForm" />
   	<form-bean name="indentForm" type="pers.qfy.struts.form.IndentForm" />
+  	<form-bean name="examineForm" type="pers.qfy.struts.form.IndentForm" />
     <form-bean name="addBBSForm" type="pers.qfy.struts.form.AddBBSForm" />
+    <form-bean name="recordForm" type="pers.qfy.struts.form.RecordForm" />
   </form-beans>
   
   <global-exceptions />
@@ -21,10 +23,6 @@
   <action-mappings>
 	<action path="/login" name="userForm" scope="request" type="pers.qfy.struts.action.LoginAction">
   		<forward name="save" path="/login.jsp" />
-  	</action>
-  	
-  	<action path="/logout" scope="request" type="pers.qfy.struts.action.LogoutAction">
-  		<forward name="success" path="/login.jsp" />
   	</action>
   	
   	<action path="/langset" name="" scope="request" type="pers.qfy.struts.action.LangSetAction" />
@@ -46,30 +44,38 @@
   		<forward name="viewUI" path="/commodity/commodity_view.jsp" />
   		<!-- viewUI适用于已经存了内容的，这时候跳入界面，则全读取内容以及显示出来。如果没内容，则可看成是一个添加页面，有内容则是修改页面 -->
   		<forward name="addUI" path="/commodity/commodity_add.jsp" />
-  		<!-- 跳到CommodityActionj中，并使用参数view。这是读取数据库内容，并显示 -->
+  		<!-- 跳到CommodityAction中，并使用参数view。这是读取数据库内容，并显示 -->
   		<forward name="show" path="/commodity.do?command=view"/>
+  		
+  		<forward name="clearView" path="/commodity.do?command=clearShow"/>
+  		<forward name="clearShowUI" path="/commodity/clearshow.jsp"/>
+  		
+  		<forward name="clear" path="/commodity.do?command=clear"/>
+  		<forward name="clearUI" path="/commodity/clear.jsp"/>
   	</action>
   	
   	<action path="/indent" name="indentForm" scope="request" type="pers.qfy.struts.action.IndentAction">
   		<!-- 进行商品编号进行查询，并把结果存起来，然后跳到添加订单页面 -->
 
   		<!-- 销售与采购页面相同  只是参数不相同 -->
-  		<!-- command参数用于控制功能   pcmd用于表明动作是属于销售还是采购的 -->
-  		<forward name="forward_sell_selectUI" path="/sellandbuy/select.jsp?pcmd=sell"/>
-  		<forward name="forward_sell_add" path="/indent.do?command=add&amp;pcmd=sell"/>
-  		<forward name="forward_sell_addUI" path="/sellandbuy/add.jsp?pcmd=sell"/>
-  		<forward name="forward_sell_view" path="/indent.do?command=view&amp;pcmd=sell"/>
-  		<forward name="forward_sell_viewUI" path="/sellandbuy/view.jsp?pcmd=sell"/>
+  		<!-- command参数用于功能选择   pcmd用于表明动作是属于销售还是采购的 -->
+  		<forward name="forward_sell_selectUI" path="/sellandpurchase/select.jsp?pcmd=sell"/>
+  		<forward name="forward_sell_add" path="/indent.do?command=add&amp;pcmd=sell"/><!-- &amp; 就是一个 &的转义 -->
+  		<forward name="forward_sell_addUI" path="/sellandpurchase/add.jsp?pcmd=sell"/>
+  		<forward name="forward_sell_pocessing" path="/indent.do?command=pocessing&amp;pcmd=sell"/>
+  		<forward name="forward_sell_pocessingUI" path="/sellandpurchase/pocessing.jsp?pcmd=sell"/>
+  		<forward name="forward_sell_historyUI" path="/sellandpurchase/history.jsp?pcmd=sell"/>
   		
-  		
-  		<forward name="forward_purchase_selectUI" path="/sellandbuy/select.jsp?pcmd=purchase"/>
-  		<forward name="forward_purchase_add" path="/indent.do?command=add&amp;pcmd=purchase"/>
-  		<forward name="forward_purchase_addUI" path="/sellandbuy/add.jsp?pcmd=purchase"/>
-  		<forward name="forward_purchase_view" path="/indent.do?command=view&amp;pcmd=purchase"/>
-  		<forward name="forward_purchase_viewUI" path="/sellandbuy/view.jsp?pcmd=purchase"/>
+  		<forward name="forward_purchase_selectUI" path="/sellandpurchase/select.jsp?pcmd=purchase"/>
+  		<forward name="forward_purchase_add" path="/indent.do?command=add&amp;pcmd=purchase"/><!-- &amp; 就是一个 &的转义 -->
+  		<forward name="forward_purchase_addUI" path="/sellandpurchase/add.jsp?pcmd=purchase"/>
+  		<forward name="forward_purchase_pocessing" path="/indent.do?command=pocessing&amp;pcmd=purchase"/>
+  		<forward name="forward_purchase_pocessingUI" path="/sellandpurchase/pocessing.jsp?pcmd=purchase"/>
+  		<forward name="forward_purchase_historyUI" path="/sellandpurchase/history.jsp?pcmd=purchase"/>
+
   	</action>
   	
-    <action name="addBBSForm" path="/addBBS" scope="request" type="pers.qfy.struts.action.AddBBSAction">
+    <action path="/addBBS" name="addBBSForm" scope="request" type="pers.qfy.struts.action.AddBBSAction">
     	<forward name="input" path="/bbs/addBBS.jsp" />
     	<forward name="error" path="/bbs/addBBS.jsp" />
     	<forward name="success" path="/showBBS.do" redirect="true" />
@@ -79,8 +85,19 @@
     	<forward name="success" path="/bbs/showBBS.jsp"/>
     	<forward name="detail" path="/bbs/showBBSDetail.jsp"/>
     </action>
-  	
+    
+    <action path="/examine" name="examineForm" scope="request" type="pers.qfy.struts.action.examineAction">
+    	<forward name="examineview" path="/examine.do?command=view"/>
+    	<forward name="history" path="/examine.do?command=history"/>
+    	<forward name="viewUI" path="/examine/showall.jsp"/>
+    	<forward name="historyUI" path="/examine/history.jsp"/>
+    </action>
+    
+    <action path="/record" scope="request" type="pers.qfy.struts.action.RecordAction">
+    	<forward name="viewUI" path="/record/show.jsp"/>
+    </action>
+
   </action-mappings>
   
-  <message-resources parameter="pers.qfy.struts.lang_zh_CN" />
+  <message-resources parameter="pers.qfy.struts.lang" />
 </struts-config>

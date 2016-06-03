@@ -3,6 +3,13 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html"	prefix="html"%>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic"%>
 <%
+	int level = (Integer)session.getAttribute("user_level");//0表示管理员
+	int issell = (Integer)session.getAttribute("user_issell");//1表示允许销售
+	int isstock = (Integer)session.getAttribute("user_isstock");//1表示允许采购
+	int ismgr = (Integer)session.getAttribute("user_ismgr");//1表示是审核者
+
+	
+	
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()	+ path + "/";
 %>
@@ -63,17 +70,18 @@
 
 	</head>
 
-	<body topmargin="0">
-		<!-- 搞一个表 宽度200  高度 背景颜色  单元格边距   单元格间距-->
-		<table style="background-color: aliceblue; height: 100%; width: 100%" cellpadding="0" cellspacing="0">
-		
+	<body>
+		<!-- 搞一个表 宽度200  高度 背景颜色  单元格边距   单元格间距-->		
+		<!-- <table style="background-color: aliceblue; height: 100%; width: 100%" cellpadding="0" cellspacing="0">
+		-->
+		<table border="0" width="180" height="100%" align="right" cellSpacing="0" cellPadding="0">
 		
 		
 			<!-- 大项 公告栏 -->
 			<tr>
 				<td onclick="menu(0)" height="33" background="img/m1.jpg">
 					<!-- 使用font标签 然后使用m1样式 -->
-					<font class="m1">公告栏</font>
+					<font class="m1"><bean:message key="bbs.manager" /></font>
 				</td>
 			</tr>
 			<tr>
@@ -81,14 +89,17 @@
 					<table width="80%" align="center">
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="showBBS.do" target="right" class="sub1">显示全部</a>
+								<a href="showBBS.do" target="right" class="sub1"><bean:message key="show.all" /></a>
 							</td>
 						</tr>
+						<!-- level值为0，就是管理员 -->
+						<%if(level == 0){ %>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="addBBS.do" target="right" class="sub1">添加公告</a>
+								<a href="addBBS.do" target="right" class="sub1"><bean:message key="bbs.add" /></a>
 							</td>
 						</tr>
+						<%} %>
 					</table>
 				</td>
 			</tr>
@@ -98,11 +109,13 @@
 			
 		
 			<!-- 大项 库存管理 -->
+			<!-- level值为0，就是管理员 -->
+			<%if(level == 0){ %>
 			<tr>
 				<!-- 点击事件触发menu(10)，高度33，背景图片 -->
 				<td onclick="menu(10)" height="33" background="img/m1.jpg">
 					<!-- 使用font标签 然后使用m1样式 -->
-					<font class="m1">货物管理</font>
+					<font class="m1"><bean:message key="commodity.manager" /></font>
 				</td>
 			</tr>
 			<tr>
@@ -113,7 +126,7 @@
 						<!-- 高度22 设置鼠标选中与离开的背景事件 -->
 						<tr>
 							<td id="m0" height="22" onmouseover="mouseMov(0,0)" onmouseout="mouseMov(0,1)">
-								<a href="commodity.do?command=view" target="right" class="sub1">查看全部货物</a>
+								<a href="commodity.do?command=view" target="right" class="sub1"><bean:message key="show.all" /></a>
 							</td>
 						</tr>
 						<tr>
@@ -125,23 +138,20 @@
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
 								<!-- 链接网址，位置，风格 -->
-								<a href="./commodity/commodity_indicative_price.jsp" target="right" class="sub1">货物价格参考</a>
-							</td>
-						</tr>
-						<tr>
-							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<!-- 链接网址，位置，风格 -->
-								<a href="./commodity/commodity_clear_expired.jsp" target="right" class="sub1">清除过期货物</a>
+								<a href="commodity.do?command=clearShow" target="right" class="sub1"><bean:message key="commodity.expired.remove" /></a>
 							</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
+			<%} %>
 
 
 
 
 			<!-- 大项 销售管理 -->
+			<!-- level值为0，就是管理员   管理员和销售权限的人才会显示这个-->
+			<%if(level==0 || issell==1){ %>
 			<tr>
 				<td onclick="menu(20)" height="33" background="img/m1.jpg">
 					<font class="m1"><bean:message key="sell.manager" /></font>
@@ -151,39 +161,32 @@
 				<td id="sub_20" style="display: none">
 					<table width="80%" align="center">
 						<tr>
-							<td id="m1" height="22" onmouseover="mouseMov(1,0)" onmouseout="mouseMov(1,1)">
-								<a href="indent.do?command=view&pcmd=sell" target="right" class="sub1"><bean:message key="indent.see.all.indent"/></a>
-							</td>
-						</tr>
-						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
 								<!-- 添加一个参数pcmd=sell ,用于判断是否销售还是采购 -->
-								<a href="./sellandbuy/select.jsp?pcmd=sell" target="right" class="sub1"><bean:message key="indent.add" /></a>
+								<a href="./sellandpurchase/select.jsp?pcmd=sell" target="right" class="sub1"><bean:message key="indent.add" /></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=view&pcmd=sell" target="right" class="sub1"><bean:message key="indent.need.process"/></a>
+								<a href="indent.do?command=pocessing&pcmd=sell" target="right" class="sub1"><bean:message key="indent.check.process"/></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=view&pcmd=sell" target="right" class="sub1"><bean:message key="indent.finish.indent"/></a>
-							</td>
-						</tr>
-						<tr>
-							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=view&pcmd=sell" target="right" class="sub1"><bean:message key="indent.hitstroy"/></a>
+								<a href="indent.do?command=history&pcmd=sell" target="right" class="sub1"><bean:message key="indent.history"/></a>
 							</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
+			<%} %>
 			
 			
 			
 			
 			<!-- 大项 采购管理 -->
+			<!-- level值为0，就是管理员   管理员和采购权限的人才会显示这个-->
+			<%if(level==0 || isstock==1){ %>
 			<tr>
 				<td onclick="menu(30)" height="33" background="img/m1.jpg">
 					<font class="m1"><bean:message key="purchase.manager" /></font>
@@ -193,33 +196,25 @@
 				<td id="sub_30" style="display: none">
 					<table width="80%" align="center">
 						<tr>
-							<td id="m1" height="22" onmouseover="mouseMov(1,0)" onmouseout="mouseMov(1,1)">
-								<a href="indent.do?command=view&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.see.all.indent"/></a>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<!-- 添加一个参数pcmd=sell ,用于判断是否销售还是采购 -->
+								<a href="./sellandpurchase/select.jsp?pcmd=purchase" target="right" class="sub1"><bean:message key="indent.add" /></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="./sellandbuy/select.jsp?pcmd=purchase" target="right" class="sub1"><bean:message key="indent.add" /></a>
+								<a href="indent.do?command=pocessing&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.check.process"/></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=view&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.need.process"/></a>
-							</td>
-						</tr>
-						<tr>
-							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=view&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.finish.indent"/></a>
-							</td>
-						</tr>
-						<tr>
-							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="indent.do?command=view&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.hitstroy"/></a>
+								<a href="indent.do?command=history&pcmd=purchase" target="right" class="sub1"><bean:message key="indent.history"/></a>
 							</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
+			<%} %>
 			
 			
 			
@@ -231,9 +226,11 @@
 
 
 			<!-- 大项 业务处理 -->
+			<!-- level值为0，就是管理员   管理员和审核权限的人才会显示这个-->
+			<%if(level==0 || ismgr==1){ %>
 			<tr>
 				<td onclick="menu(40)" height="33" background="img/m1.jpg">
-					<font class="m1">业务处理</font>
+					<font class="m1"><bean:message key="business.manager"/></font>
 				</td>
 			</tr>
 			<tr>
@@ -241,22 +238,32 @@
 					<table width="80%" align="center">
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="./tmp/tmp3.jsp" target="right" class="sub1">业务审核</a>
+								<a href="examine.do?command=view" target="right" class="sub1"><bean:message key="indent.need.process" /></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="./tmp/tmp3.jsp" target="right" class="sub1">历史记录</a>
+								<a href="examine.do?command=history" target="right" class="sub1"><bean:message key="indent.history" /></a>
 							</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
+			<%} %>
 
-			<!-- 大项 系统管理 -->
+
+
+
+
+
+
+
+			<!-- 大项 交易记录 -->
+			<!-- level值为0，就是管理员   管理员和审核权限的人才会显示这个-->
+			<%if(level==0 || ismgr==1){ %>
 			<tr>
 				<td onclick="menu(50)" height="33" background="img/m1.jpg">
-					<font class="m1">系统管理</font>
+					<font class="m1"><bean:message key="fund.record"/></font>
 				</td>
 			</tr>
 			<tr>
@@ -264,23 +271,53 @@
 					<table width="80%" align="center">
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="system.do?command=myInfo" target="right" class="sub1">我的信息</a>
+								<a href="record.do?command=view" target="right" class="sub1"><bean:message key="trade.history"/></a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<%} %>
+
+
+
+
+
+
+
+			<!-- 大项 系统管理 -->
+			<tr>
+				<td onclick="menu(90)" height="33" background="img/m1.jpg">
+					<font class="m1"><bean:message key="system.manager" /></font>
+				</td>
+			</tr>
+			<tr>
+				<td id="sub_90" style="display: none">
+					<table width="80%" align="center">
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="system.do?command=myInfo" target="right" class="sub1"><bean:message key="user.information"/></a>
 							</td>
 						</tr>
 						<tr>
 							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-								<a href="system.do?command=changePassword" target="right" class="sub1">修改密码</a>
+								<a href="system.do?command=changePassword" target="right" class="sub1"><bean:message key="user.password.change"/></a>
 							</td>
 						</tr>
 
-						<!-- 判断是否有isadmin值，有就已经表示是管理员了 -->
-						<logic:notEmpty name="isadmin" scope="session">
-							<tr>
-								<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
-									<a href="system.do?command=showUser" target="right" class="sub1">查看用户</a>
-								</td>
-							</tr>
-						</logic:notEmpty>
+						<!-- level值为0，就是管理员 -->
+						<%if(level == 0){ %>
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="system.do?command=showUser" target="right" class="sub1"><bean:message key="user.manager"/></a>
+							</td>
+						</tr>
+						<%} %>
+						<tr>
+							<td height="22" onmouseover="this.style.backgroundColor='#ffffff'" onmouseout="this.style.backgroundColor=''">
+								<a href="system.do?command=exit" target="_top" class="sub1"><bean:message key="logout.system"/></a>
+							</td>
+						</tr>
 					</table>
 				</td>
 			</tr>
@@ -295,3 +332,4 @@
 		</table>
 	</body>
 </html>
+

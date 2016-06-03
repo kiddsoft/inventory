@@ -1,5 +1,5 @@
 #MyEclipse Hibernate Properties
-#Sat Apr 30 20:09:29 CST 2016
+#Sun May 22 12:52:01 CST 2016
 sessionFactoryName=pers.qfy.dao.HibernateSessionFactory
 genBasicCompId=false
 profile=
@@ -18,7 +18,7 @@ genVersionTag=false
 sessionFactoryId=
 basePersistenceClass=
 genAnnotations=false
-reSettingsFile=
+reSettingsFile=/inventory/hibernate.reveng.xml
 configFile=/manager/src/hibernate.cfg.xml
 createConfigFile=true
 addLibs2Classpath=true

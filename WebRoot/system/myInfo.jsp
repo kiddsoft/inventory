@@ -21,36 +21,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
   <body>
-    <table align="center">
-      <tr>
-        <td>登陆账号</td>
-        <td>${userInfo.username}</td>
-      </tr>
-      <tr>
-        <td>姓名</td>
-        <td>${userInfo.name}</td>
-      </tr>
-      <tr>
-        <td>用户级别</td>
-        <td>${userInfo.level}</td>
-      </tr>
-      <tr>
-        <td>上级领导</td>
-        <td>${userInfo.superior}</td>
-      </tr>
-      <tr>
-        <td>进货权限</td>
-        <td>${userInfo.isstock}</td>
-      </tr>
-      <tr>
-        <td>销售权限</td>
-        <td>${userInfo.issell}</td>
-      </tr>
-      <tr>
-        <td>管理订单</td>
-        <td>${userInfo.ismgr}</td>
-      </tr>
-  </table>
-
+  	<div class="div1">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td class="td_title1">
+					·<bean:message key="current.pos"/>：
+					<bean:message key="system.manager"/>
+					&gt;&gt; <bean:message key="user.information" />
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#FFFFFF" height="50">
+					<br>
+					<table border="1" align="center" width="300" cellpadding="0" cellspacing="0" bordercolor="#036500" >
+						<tr bgcolor="#FFFFFF">
+							<td colspan="9" align="center">
+							  <table>
+							  	  <tr>
+							        <td><bean:message key="user.number"/></td>
+							        <td>${userInfo.username}</td>
+							      </tr>
+							      <tr>
+							        <td><bean:message key="user.username"/></td>
+							        <td>${userInfo.name}</td>
+							      </tr>
+							      <tr>
+							        <td><bean:message key="user.level"/></td>
+							        <td>${userInfo.leveltype}</td>
+							      </tr>
+							      <tr>
+							        <td><bean:message key="user.superior"/></td>
+							        <td>${userInfo.superior}</td>
+							      </tr>
+							      <tr>
+							        <td><bean:message key="user.isstock"/></td>
+							        <td>${userInfo.isstocktype}</td>
+							      </tr>
+							      <tr>
+							        <td><bean:message key="user.issell"/></td>
+							        <td>${userInfo.isselltype}</td>
+							      </tr>
+							      <tr>
+							        <td><bean:message key="indent.manager"/></td>
+							        <td>${userInfo.ismgrtype}</td>
+							      </tr>
+							  </table>
+							</td>
+						</tr>
+					</table>
+					<br>
+				</td>
+			</tr>
+		</table>
+	</div>
   </body>
 </html>

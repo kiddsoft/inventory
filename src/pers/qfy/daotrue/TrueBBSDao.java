@@ -1,5 +1,7 @@
 package pers.qfy.daotrue;
 
+//用于操作tb_bbs表格的类
+//公告表格的操作
 import java.text.SimpleDateFormat;
 import java.util.List;
 

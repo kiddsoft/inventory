@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<!-- 标签库引用，分别起别名为 bean html logic -->
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
@@ -17,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
+		
 		<!-- 引用css/styles.css文件 -->
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
 		<!-- 用来给本页面单独使用的样式，方便统一修改 -->
@@ -59,12 +61,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</head>
 	<!-- 网页主体 -->
 	<body style="background-color: aliceblue">
+	
 	<!-- 设一个表格，占满整个网页 无边框 -->
 	<table width="100%" height="100%">
 		<!-- 表格一行 -->
 		<tr>
 			<!-- 内容右显，用于显示两个语言设置 -->
-			<td align="right">
+			<td align="left">
 				<a href="langset.do?lang=ch">中文</a>
 				<a href="langset.do?lang=en">English</a>
 			</td>
@@ -79,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tr>
 						<td background="img/loginTitle.jpg" width="500" height="180" align="center">
 							<!-- 使用这个则会根据图片大小自动拉伸 <img src="img/loginTitle.jpg" />-->
-							<h3>用户登录</h3>
+							<h3></h3>
 						</td>
 					</tr>
 					<!-- 子表格二行 -->
@@ -108,6 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<!-- 设置一个按钮，并设置点击时触发函数 -->
 											<html:button property="lgoin" onclick="check()" styleClass="buttonStyle">
 												<bean:message key="user.button.login"/>
+												<%System.out.println("执行的这里"); %>
 											</html:button>
 											<!-- 重置按钮 -->
 											<html:reset styleClass="buttonStyle">
@@ -115,12 +119,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</html:reset>
 										</td>
 									</tr>
+									
 									<logic:notEmpty name="error">
 									<tr>
 										<td></td>
 										<td>
 											<!--使用EL标签还是=request.getAttribute("error")-->
-											${requestScope.error}
+											${sessionScope.error}
 										</td>
 									</tr>
 									</logic:notEmpty>

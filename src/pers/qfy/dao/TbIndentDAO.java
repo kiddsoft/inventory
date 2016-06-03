@@ -30,6 +30,8 @@ public class TbIndentDAO extends BaseHibernateDAO {
 	public static final String SUPERIOR = "superior";
 	public static final String ICOUNT = "icount";
 	public static final String PRICE = "price";
+	public static final String CLIENTNAME = "clientname";
+	public static final String CLIENTPHONE = "clientphone";
 	public static final String ISOUTSELL = "isoutsell";
 	public static final String ISTATE = "istate";
 
@@ -114,6 +116,14 @@ public class TbIndentDAO extends BaseHibernateDAO {
 
 	public List findByPrice(Object price) {
 		return findByProperty(PRICE, price);
+	}
+
+	public List findByClientname(Object clientname) {
+		return findByProperty(CLIENTNAME, clientname);
+	}
+
+	public List findByClientphone(Object clientphone) {
+		return findByProperty(CLIENTPHONE, clientphone);
 	}
 
 	public List findByIsoutsell(Object isoutsell) {

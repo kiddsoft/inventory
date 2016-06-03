@@ -12,6 +12,8 @@ public class IndentForm  extends ActionForm {
 	private String superior;
 	private Integer icount;
 	private Integer price;
+	private String clientname;
+	private String clientphone;
 	private Integer isoutsell;
 	private Integer istate;
 	private Timestamp itime;
@@ -79,5 +81,17 @@ public class IndentForm  extends ActionForm {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getClientname() {
+		return clientname;
+	}
+	public void setClientname(String clientname) {
+		this.clientname = clientname;
+	}
+	public String getClientphone() {
+		return clientphone;
+	}
+	public void setClientphone(String clientphone) {
+		this.clientphone = clientphone;
 	}
 }
